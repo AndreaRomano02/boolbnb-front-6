@@ -42,7 +42,7 @@ export default {
     <div class='container py-3' v-else>
         <div class='row'>
             <div class="col-6">
-                <img :src="`http://127.0.0.1:8000/storage/${apartment.cover_img}`" class="img-fluid "
+                <img :src="`http://127.0.0.1:8000/storage/${this.apartment.images[0].path}`" class="img-fluid "
                     :alt="apartment.title" />
             </div>
             <div class="col-6">
