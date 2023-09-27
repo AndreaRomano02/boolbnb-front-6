@@ -14,7 +14,6 @@ export default {
     created() {
         this.getSingleApartment()
     },
-
     methods: {
         getSingleApartment() {
             axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
@@ -22,6 +21,11 @@ export default {
             }).catch(err => {
                 this.$router.push('/not-found-page')
             });
+        },
+        destroy(id) {
+            axios.delete(`http://127.0.0.1:8000/api/apartments/${id}`).then(res => {
+                this.$router.push('/')
+            })
         }
     },
 }
@@ -48,6 +52,9 @@ export default {
                     <li><strong>Descrizione:</strong> {{ apartment.description }}</li>
                     <li><strong>Dimensione dell'appartamento:</strong> {{ apartment.square_meters }} metri quadrati</li>
                 </ul>
+                <form @submit.prevent="destroy(apartment.id)">
+                    <button class="btn btn-danger">Elimina</button>
+                </form>
             </div>
         </div>
     </div>
