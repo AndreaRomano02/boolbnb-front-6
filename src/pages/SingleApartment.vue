@@ -7,7 +7,7 @@ export default {
 
     data() {
         return {
-            apartment: null,
+            apartment: {},
         }
     },
 
@@ -18,7 +18,6 @@ export default {
     methods: {
         getSingleApartment() {
             axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
-                console.log(res.data);
                 this.apartment = res.data;
             });
         }
