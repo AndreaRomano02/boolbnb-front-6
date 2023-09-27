@@ -62,6 +62,7 @@ export default {
                 </form>
             </div>
         </div>
+        <router-link class="btn btn-sm btn-primary" :to="{ name: 'apartments' }">Torna alla Home</router-link>
     </div>
 </template>
 
