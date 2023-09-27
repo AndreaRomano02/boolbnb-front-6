@@ -14,7 +14,11 @@ const router = createRouter({
       component: SingleApartment,
     },
     { path: "/", name: "apartments", component: ApartmentsPage },
-    { path: "/:pathMatch(.*)*", component: NotFoundPage },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found-page",
+      component: NotFoundPage,
+    },
   ],
 });
 

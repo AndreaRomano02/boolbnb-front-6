@@ -19,6 +19,8 @@ export default {
         getSingleApartment() {
             axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
                 this.apartment = res.data;
+            }).catch(err => {
+                this.$router.push('/not-found-page')
             });
         }
     },
