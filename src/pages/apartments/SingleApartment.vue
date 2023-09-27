@@ -8,6 +8,7 @@ export default {
     data() {
         return {
             apartment: {},
+            is_loading: false,
         }
     },
 
@@ -16,10 +17,13 @@ export default {
     },
     methods: {
         getSingleApartment() {
+            this.is_loading = true;
             axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
                 this.apartment = res.data;
             }).catch(err => {
                 this.$router.push('/not-found-page')
+            }).then(() => {
+                this.is_loading = false;
             });
         },
         destroy(id) {
@@ -34,7 +38,8 @@ export default {
 
 
 <template>
-    <div class='container py-3'>
+    <AppLoader v-if="is_loading" />
+    <div class='container py-3' v-else>
         <div class='row'>
             <div class="col-6">
                 <img :src="`http://127.0.0.1:8000/storage/${apartment.cover_img}`" class="img-fluid "
