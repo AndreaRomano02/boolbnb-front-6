@@ -19,7 +19,7 @@ export default {
 
 <template>
     <div class="card">
-        <img class="card-img-top" :src="apartment.image" />
+        <img class="card-img-top" :src="`http://127.0.0.1:8000/storage/${this.apartment.images[0].path}`" />
         <div class="card-body">
             <h5 class="card-title">{{ apartment.title }}</h5>
             <p class="card-text">{{ apartment.description }}</p>
