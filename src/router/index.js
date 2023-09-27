@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import SingleApartment from "../pages/apartments/SingleApartment.vue";
 import ApartmentsPage from "../pages/apartments/ApartmentsPage.vue";
+import ApartmentForm from "../pages/apartments/ApartmentForm.vue";
 import NotFoundPage from "../pages/NotFoundPage.vue";
 
 const router = createRouter({
@@ -19,6 +20,7 @@ const router = createRouter({
       name: "not-found-page",
       component: NotFoundPage,
     },
+    { path: "/form" , name: "FormPage" , component: ApartmentForm},
   ],
 });
 
