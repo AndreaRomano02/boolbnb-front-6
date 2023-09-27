@@ -14,13 +14,13 @@ const router = createRouter({
       name: "SingleApartment",
       component: SingleApartment,
     },
-    { path: "/", name: "apartments", component: ApartmentsPage },
+    { path: "/apartments", name: "apartments", component: ApartmentsPage },
     {
       path: "/:pathMatch(.*)*",
       name: "not-found-page",
       component: NotFoundPage,
     },
-    { path: "/form" , name: "FormPage" , component: ApartmentForm},
+    { path: "/form", name: "FormPage", component: ApartmentForm },
   ],
 });
 

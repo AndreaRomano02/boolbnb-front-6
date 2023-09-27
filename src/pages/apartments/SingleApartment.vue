@@ -28,7 +28,7 @@ export default {
         },
         destroy(id) {
             axios.delete(`http://127.0.0.1:8000/api/apartments/${id}`).then(res => {
-                this.$router.push('/')
+                this.$router.push('/apartments')
             })
         }
     },
