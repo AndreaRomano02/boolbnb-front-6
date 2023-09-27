@@ -1,22 +1,12 @@
 <script>
-
-
 export default {
     name: "ApartmentCard",
 
-    props: ['apartment'],
-    data() {
-
-    },
-    methods: {
-
-    },
-    beforeMount() {
-
+    props: {
+        apartment: Object,
     },
 };
 </script>
-
 
 <template>
     <div class="card ">
@@ -24,7 +14,8 @@ export default {
         <div class="card-body">
             <h5 class="card-title">{{ apartment.title }}</h5>
             <p class="card-text">{{ apartment.description }}</p>
-            <router-link class="btn btn-sm btn-primary" :to="{ name: 'SingleApartment', params: { id: apartment.id } }">Guarda il
+            <router-link class="btn btn-sm btn-primary"
+                :to="{ name: 'SingleApartment', params: { id: apartment.id } }">Guarda il
                 progetto</router-link>
         </div>
     </div>

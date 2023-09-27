@@ -9,16 +9,17 @@ export default {
         { ApartmentCard },
     data() {
         return {
-            apartments: {},
+            apartments: [],
         };
     },
     methods: {
-        async getApartments() {
-            const { data } = await axios.get("http://127.0.0.1:8000/api/apartments");
-            this.apartments = data;
+        getApartments() {
+            axios.get("http://127.0.0.1:8000/api/apartments").then(res => {
+                this.apartments = res.data;
+            })
         },
     },
-    beforeMount() {
+    created() {
         this.getApartments();
     },
 };
@@ -29,7 +30,7 @@ export default {
     <div class="container my-5">
         <div class="row ">
             <h1 class="text-center mb-5">Boolbnb Team 6</h1>
-            <div class="col-3 mb-5" v-for="apartment in apartments">
+            <div class="col-3 mb-5" v-for="apartment in apartments" :key="apartment.id">
                 <ApartmentCard :apartment="apartment" />
             </div>
         </div>
