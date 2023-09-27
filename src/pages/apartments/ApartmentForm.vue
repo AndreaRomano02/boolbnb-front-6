@@ -94,6 +94,9 @@ export default {
 
 <template>
     <div class="container">
+        <div class="m-5 text-end">
+            <router-link class="btn btn-sm btn-warning mt-2" :to="{ name: 'apartments' }">Torna alla home</router-link>
+        </div>
         <form @submit.prevent="sendForm()">
 
             <!--user id-->
@@ -180,7 +183,6 @@ export default {
                     <label for="is_visible" class="form-check-label">Visibile</label>
                 </div>
             </div>
-
             <button class="btn btn-success">Invia</button>
         </form>
     </div>
