@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import SingleApartment from "../pages/SingleApartment.vue";
-import ApartmentsPage from "../pages/ApartmentsPage.vue";
+import SingleApartment from "../pages/apartments/SingleApartment.vue";
+import ApartmentsPage from "../pages/apartments/ApartmentsPage.vue";
 import NotFoundPage from "../pages/NotFoundPage.vue";
 
 const router = createRouter({
