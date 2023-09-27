@@ -31,7 +31,7 @@ export default {
         <div class="row ">
             <h1 class="text-center mb-5">Boolbnb Team 6</h1>
             <div class="col-3 mb-5" v-for="apartment in apartments" :key="apartment.id">
-                <ApartmentCard :apartment="apartment" />
+                <ApartmentCard :apartment="apartment" @deleted="getApartments" />
             </div>
         </div>
     </div>

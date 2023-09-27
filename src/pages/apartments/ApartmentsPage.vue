@@ -1,5 +1,5 @@
 <script>
-import ApartmentList from '../../components/apartments/ApartmentList.vue';
+import ApartmentList from '../../components/apartments/Apartmentlist.vue';
 export default {
     components: { ApartmentList }
 };
