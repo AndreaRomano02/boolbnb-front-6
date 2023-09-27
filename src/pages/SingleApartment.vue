@@ -33,7 +33,8 @@ export default {
     <div class='container py-3'>
         <div class='row'>
             <div class="col-6">
-                <!-- <img :src="`${store.apartmentsUrl}/storage/${apartment.cover_img}`" class="img-fluid " :alt="apartment.title"/> -->
+                <img :src="`http://127.0.0.1:8000/storage/${apartment.cover_img}`" class="img-fluid "
+                    :alt="apartment.title" />
             </div>
             <div class="col-6">
                 <ul>
@@ -63,20 +64,13 @@ export default {
     img {
         width: 100%;
         border-radius: 20px;
-
-
     }
 
     &:hover {
-
-
         img {
             filter: brightness(50%);
             transition: 1s;
         }
-
-
-
     }
 
     ul {
