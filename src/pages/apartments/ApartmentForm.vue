@@ -11,12 +11,14 @@ const formField = {
     bathrooms: null,
     square_meters: null,
     is_visible: null,
+    services: [],
 };
 export default {
     data() {
         return {
             form: { ...formField },
             errors: {},
+            services: [],
         }
     },
     computed: {
@@ -25,6 +27,13 @@ export default {
         }
     },
     methods: {
+
+        fetchServices() {
+            const endpoint = 'http://127.0.0.1:8000/api/apartments/services';
+            axios.get(endpoint).then(res => {
+                this.services = res.data;
+            })
+        },
 
         sendForm() {
 
@@ -89,6 +98,9 @@ export default {
         },
 
     },
+    created() {
+        this.fetchServices()
+    }
 };
 </script>
 
@@ -174,6 +186,34 @@ export default {
                     {{ errors.square_meters }}
                 </div>
             </div>
+
+            <!-- services -->
+            <div class="col-12 py-2">
+
+                <div class="form-check form-check-inline" v-for="service in services" :key="service.id">
+
+
+                    <label class="form-check-label" :for="service.id">
+                        <i class="material-icons">{{ service.icon }}</i>{{ service.label }}
+                    </label>
+
+
+                    <input class="form-check-input" type="checkbox" :id="service.id" v-model="form.services"
+                        :value="service.id">
+
+                </div>
+
+                <div v-if="errors.services" class="invalid-feedback">
+                    {{ errors.services }}
+                </div>
+
+            </div>
+
+
+
+
+
+
 
             <!--VISIBILITA'-->
             <div class="mb-3">
