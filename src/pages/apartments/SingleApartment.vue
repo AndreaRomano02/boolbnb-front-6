@@ -57,12 +57,9 @@ export default {
                     <li><strong>Descrizione:</strong> {{ apartment.description }}</li>
                     <li><strong>Dimensione dell'appartamento:</strong> {{ apartment.square_meters }} metri quadrati</li>
                 </ul>
-                <form @submit.prevent="destroy(apartment.id)">
-                    <button class="btn btn-danger">Elimina</button>
-                </form>
             </div>
         </div>
-        <router-link class="btn btn-sm btn-primary" :to="{ name: 'apartments' }">Torna alla Home</router-link>
+        <router-link class="btn btn-sm btn-primary" :to="{ name: 'apartments' }">Torna agli appartamenti</router-link>
     </div>
 </template>
 

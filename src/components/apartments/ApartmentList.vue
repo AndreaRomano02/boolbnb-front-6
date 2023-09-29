@@ -34,11 +34,12 @@ export default {
 
 <template>
     <AppLoader v-if="is_loading" />
-    <div v-else class="container my-5">
-        <div class="row ">
-            <h1 class="text-center mb-5">Boolbnb Team 6</h1>
-            <div class="col-3 mb-5" v-for="apartment in apartments" :key="apartment.id">
-                <ApartmentCard :apartment="apartment" @deleted="getApartments" />
+    <div v-else class="container-fluid px-5 my-5">
+        <div class="wrapper px-4">
+            <div class="row ">
+                <div class="col-3 mb-5" v-for="apartment in apartments" :key="apartment.id">
+                    <ApartmentCard :apartment="apartment" @deleted="getApartments" />
+                </div>
             </div>
         </div>
     </div>
@@ -46,4 +47,4 @@ export default {
   
 
 
-<style></style>
+<style lang="scss" scoped></style>
