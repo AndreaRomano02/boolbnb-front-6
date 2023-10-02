@@ -4,10 +4,11 @@ const endpoint = 'http://localhost:8000/api/apartments';
 import AppLoader from '../components/AppLoader.vue';
 import ApartmentList from '../components/apartments/ApartmentList.vue';
 import ApartmentCard from '../components/apartments/ApartmentCard.vue';
+import AppHeader from '../components/AppHeader.vue';
 import AppHero from '../components/AppHero.vue';
 export default {
     name: 'HomePage',
-    components: { AppHero, ApartmentList, AppLoader, ApartmentCard },
+    components: { AppHeader, AppHero, ApartmentList, AppLoader, ApartmentCard },
     data() {
         return {
             apartments: [],
@@ -40,9 +41,10 @@ export default {
 
 <template>
     <main>
-        <AppHero v-if="isHomePage" />
+        <AppHeader :is-home-page="isHomePage" />
+        <AppHero />
         <AppLoader v-if="isLoading" />
-        <div v-else class="my-5">
+        <div v-else class="pt-4">
             <ApartmentList class="my-5" />
         </div>
     </main>
