@@ -1,11 +1,14 @@
 <script>
 import ApartmentList from '../../components/apartments/ApartmentList.vue';
+import AppHeader from '../../components/AppHeader.vue';
 
 export default {
     name: "ApartmentsPage",
-    components: { ApartmentList },
-    props: {
-        isHomePage: false,
+    components: { AppHeader, ApartmentList },
+    data() {
+        return {
+            isHomePage: false,
+        };
     },
     created() {
         console.log("isHomePage in ApartmentsPage:", this.isHomePage);
@@ -14,7 +17,10 @@ export default {
 </script>
 
 <template>
-    <ApartmentList />
+    <AppHeader :is-home-page="isHomePage" />
+    <div class="pt-5 mt-5">
+        <ApartmentList />
+    </div>
 </template>
 
 <style scoped></style>

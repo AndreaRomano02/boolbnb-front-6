@@ -13,19 +13,16 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomePage,
-      props: { isHomePage: true },
     },
     {
       path: "/apartment/:id",
       name: "SingleApartment",
       component: SingleApartment,
-      props: { isHomePage: false },
     },
     {
       path: "/apartments",
       name: "apartments",
       component: ApartmentsPage,
-      props: { isHomePage: false },
     },
     {
       path: "/:pathMatch(.*)*",
