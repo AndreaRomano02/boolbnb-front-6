@@ -76,11 +76,11 @@ export default {
     -->
 
     <div class="container">
-        <div>
+        <div class="mt-4">
             <h6>{{ apartment.title }}</h6>
         </div>
 
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="mb-3 d-flex align-items-center justify-content-between">
             <div>
                 <span>4.83</span>
                 <span>{{ apartment.title }}</span>
