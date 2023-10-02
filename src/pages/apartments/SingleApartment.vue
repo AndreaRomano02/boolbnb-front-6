@@ -126,7 +126,7 @@ export default {
 
         <div class="mt-5 d-flex justify-content-between align-content-center my-mdquer">
 
-            <div class="col-md-5">
+            <div class="col-md-5 my-mrg-mob">
                 <h6>{{ apartment.title }}</h6>
                 <p><span>3 guest</span><span>1bedroom</span><span>2beds</span><span>1bath</span></p>
                 <hr>
@@ -163,14 +163,14 @@ export default {
                     </p>
                 </div>
                 <hr>
-                <div>
+                <div class="">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque ipsa aliquam et aliquid blanditiis
                     dolores quisquam rerum nostrum, earum eligendi vitae qui, porro commodi nulla, officiis quos natus culpa
                     quibusdam. <a href="">read more</a>
                 </div>
             </div>
 
-            <div class="col-md-1">
+            <div class="col-md-1 my-mrg-top-30 my-txt-cnt">
                 <img src="https://picsum.photos/seed/picsum/200" alt="Left Image" class="rounded-circle img-thumbnail"
                     style="height: 90px; width: 90px;">
             </div>
@@ -178,7 +178,7 @@ export default {
 
 
 
-            <div class="col-md-6 d-block">
+            <div class="col-md-6 d-block my-txt-cnt">
                 <h6>185 euro/night</h6>
                 <div>
                     <button class="btn btn-danger form-control">Check availability</button>
@@ -272,6 +272,14 @@ export default {
 
     .my-mrg-mob {
         margin-bottom: 20px;
+    }
+
+    .my-mrg-top-30 {
+        margin-top: 50px;
+    }
+
+    .my-txt-cnt {
+        text-align: center;
     }
 }
 </style>
