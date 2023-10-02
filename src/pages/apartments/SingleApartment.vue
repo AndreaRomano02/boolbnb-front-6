@@ -93,29 +93,29 @@ export default {
             </div>
         </div>
 
-        <div>
+        <div class="sde">
             <div class="row">
                 <!-- Left column with a single image -->
-                <div class="col-md-6">
+                <div class="col-md-6 my-mrg-mob">
                     <img src="https://picsum.photos/seed/picsum/600" alt="Left Image" class="img-fluid">
                 </div>
                 <!-- Right column with 4 images -->
                 <div class="col-md-6">
                     <div class="row">
                         <!-- Top-left image -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-block my-mrg-mob">
                             <img src="https://picsum.photos/seed/picsum/300" alt="Left Image" class="img-fluid">
                         </div>
                         <!-- Top-right image -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-block my-mrg-mob">
                             <img src="https://picsum.photos/id/13/300" alt="Left Image" class="img-fluid">
                         </div>
                         <!-- Bottom-left image -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-block my-mrg-mob">
                             <img src="https://picsum.photos/id/14/300" alt="Left Image" class="img-fluid">
                         </div>
                         <!-- Bottom-right image -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-block my-mrg-mob">
                             <img src="https://picsum.photos/id/15/300" alt="Left Image" class="img-fluid">
                         </div>
                     </div>
@@ -124,7 +124,7 @@ export default {
             </div>
         </div>
 
-        <div class=" mt-5 d-flex justify-content-between align-content-center">
+        <div class="mt-5 d-flex justify-content-between align-content-center my-mdquer">
 
             <div class="col-md-5">
                 <h6>{{ apartment.title }}</h6>
@@ -178,7 +178,7 @@ export default {
 
 
 
-            <div class="col-md-6">
+            <div class="col-md-6 d-block">
                 <h6>185 euro/night</h6>
                 <div>
                     <button class="btn btn-danger form-control">Check availability</button>
@@ -261,5 +261,17 @@ export default {
         // }
     }
 
+}
+
+
+@media only screen and (max-width: 900px) {
+    .my-mdquer {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .my-mrg-mob {
+        margin-bottom: 20px;
+    }
 }
 </style>
