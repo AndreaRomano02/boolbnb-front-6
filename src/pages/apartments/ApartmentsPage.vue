@@ -1,7 +1,15 @@
 <script>
 import ApartmentList from '../../components/apartments/ApartmentList.vue';
+
 export default {
-    components: { ApartmentList }
+    name: "ApartmentsPage",
+    components: { ApartmentList },
+    props: {
+        isHomePage: false,
+    },
+    created() {
+        console.log("isHomePage in ApartmentsPage:", this.isHomePage);
+    },
 };
 </script>
 

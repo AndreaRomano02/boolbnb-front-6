@@ -6,12 +6,18 @@ export default {
   components: {
     AppHeader,
   },
+  data() {
+    return {
+      isHomePage: Boolean,
+    };
+  },
 };
 </script>
 
 <template>
-  <AppHeader />
+  <AppHeader :is-home-page="isHomePage" />
   <RouterView />
 </template>
 
 <style></style>
+
