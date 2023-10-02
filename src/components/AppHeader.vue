@@ -12,15 +12,6 @@ export default {
             isScrolled: false,
         };
     },
-    // computed: {
-    //     headerClass() {
-    //         return {
-    //             'homepage-header': this.isHomePage && !this.isScrolled,
-    //             'header-scrolled': this.isHomePage && this.isScrolled,
-    //             'otherpage-header': !this.isHomePage,
-    //         };
-    //     },
-    // },
     mounted() {
         gsap.registerPlugin(ScrollTrigger);
         if (this.isHomePage) {
