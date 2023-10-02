@@ -44,7 +44,7 @@ export default {
         <AppHeader :is-home-page="isHomePage" />
         <AppHero />
         <AppLoader v-if="isLoading" />
-        <div v-else class="my-5">
+        <div v-else class="pt-4">
             <ApartmentList class="my-5" />
         </div>
     </main>

@@ -18,7 +18,9 @@ export default {
 
 <template>
     <AppHeader :is-home-page="isHomePage" />
-    <ApartmentList />
+    <div class="pt-5 mt-5">
+        <ApartmentList />
+    </div>
 </template>
 
 <style scoped></style>
