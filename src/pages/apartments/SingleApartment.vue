@@ -97,26 +97,40 @@ export default {
             <div class="row">
                 <!-- Left column with a single image -->
                 <div class="col-md-6 my-mrg-mob">
-                    <img src="https://picsum.photos/seed/picsum/600" alt="Left Image" class="img-fluid">
+                    <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
+                        alt="Apartment Image" class="img-fluid"
+                        style="border-top-left-radius: 9px; border-bottom-left-radius: 9px;" />
                 </div>
+
+
                 <!-- Right column with 4 images -->
                 <div class="col-md-6 my-mrg-top-30">
                     <div class="row">
                         <!-- Top-left image -->
                         <div class="d-block my-mrg-mob my-img-query" style="flex-basis: 50%;">
-                            <img src="https://picsum.photos/seed/picsum/300" alt="Left Image" class="img-fluid">
+                            <img v-if="apartment.images.length"
+                                :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
+                                class="img-fluid" style="height: 300px; width: 315px; object-fit: cover; " />
                         </div>
                         <!-- Top-right image -->
                         <div class="d-block my-mrg-mob my-img-query" style="flex-basis: 50%;">
-                            <img src="https://picsum.photos/id/13/300" alt="Left Image" class="img-fluid">
+                            <img v-if="apartment.images.length"
+                                :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
+                                class="img-fluid"
+                                style="height: 300px; width: 315px; object-fit: cover; border-top-right-radius: 9px;" />
                         </div>
                         <!-- Bottom-left image -->
                         <div class="d-block my-mrg-mob my-img-query" style="flex-basis: 50%;">
-                            <img src="https://picsum.photos/id/14/300" alt="Left Image" class="img-fluid">
+                            <img v-if="apartment.images.length"
+                                :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
+                                class="img-fluid" style="height: 300px; width: 315px; object-fit: cover" />
                         </div>
                         <!-- Bottom-right image -->
                         <div class="d-block my-mrg-mob my-img-query" style="flex-basis: 50%;">
-                            <img src="https://picsum.photos/id/15/300" alt="Left Image" class="img-fluid">
+                            <img v-if="apartment.images.length"
+                                :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
+                                class="img-fluid"
+                                style="height: 300px; width: 315px; object-fit: cover; border-bottom-right-radius: 9px;" />
                         </div>
                     </div>
                 </div>
@@ -132,7 +146,7 @@ export default {
                 <hr>
                 <div>
                     <span>
-                        <b>Entire home</b>
+                        <b>{{ apartment.address }}</b>
                     </span>
                     <p>
                         You'll have the house to yourself
@@ -140,7 +154,7 @@ export default {
                 </div>
                 <div>
                     <span>
-                        <b>Sparkling Clean</b>
+                        <b>{{ apartment.beds }}</b>
                     </span>
                     <p>
                         You'll have the house to yourself
@@ -148,7 +162,7 @@ export default {
                 </div>
                 <div>
                     <span>
-                        <b>Sara is a Superhost</b>
+                        <b>{{ apartment.rooms }}</b>
                     </span>
                     <p>
                         You'll have the house to yourself
@@ -156,7 +170,7 @@ export default {
                 </div>
                 <div>
                     <span>
-                        <b>EGreat Location</b>
+                        <b>{{ apartment.bathrooms }}</b>
                     </span>
                     <p>
                         You'll have the house to yourself
@@ -171,8 +185,10 @@ export default {
             </div>
 
             <div class="col-md-1 my-mrg-top-30 my-txt-cnt">
-                <img src="https://picsum.photos/seed/picsum/200" alt="Left Image" class="rounded-circle img-thumbnail"
-                    style="height: 90px; width: 90px;">
+
+
+                <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
+                    alt="rounded image" class="rounded-circle img-thumbnail" style="height: 90px; width: 90px;" />
             </div>
 
 
@@ -204,13 +220,16 @@ export default {
             <div>
                 <span>1/3 </span>
                 <span>prev</span>
-                <span>next</span>
+                <span><i class="material-icons">navigate_before</i></span>
+                <span><i class="material-icons">navigate_next</i></span>
             </div>
         </div>
 
         <div class="row d-flex justify-content-center">
             <div class="col-3 ddd" v-for="ap in apartments" :key="apartment.id" sty>
-                <img src="https://picsum.photos/seed/picsum/300" alt="Left Image" class="img-fluid">
+                <!--     <img src="https://picsum.photos/seed/picsum/300" alt="Left Image" class="img-fluid">  -->
+                <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
+                    alt="Apartment Image" class="img-fluid" style="height: 190px; width: 190px; object-fit: cover" />
                 <div>
                     {{ ap.title }}
 
