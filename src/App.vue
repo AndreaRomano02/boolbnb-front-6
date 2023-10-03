@@ -10,8 +10,8 @@ export default {
 </script>
 
 <template>
-  <AppHeader />
   <RouterView />
 </template>
 
 <style></style>
+
