@@ -20,7 +20,7 @@ export default {
                 <input type="text" v-model="searchText" class="form-control" placeholder="Cerca una destinazione"
                     aria-describedby="button-addon2">
                 <button @click="$emit('startSearch', searchText)" class="d-flex align-items-center" type="button"
-                    id="button-addon2"><i class="material-icons fs-5 px-4 text-white">search</i></button>
+                    id="button-addon2"><i class="material-icons fs-5 px-4">search</i></button>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@ export default {
 #app-hero {
     height: 750px;
     background-image: url('/hero.jpg');
-    background-position: center;
+    background-position: bottom;
     background-size: cover;
     position: relative;
 }
@@ -60,23 +60,32 @@ export default {
 }
 
 .searchbar {
-    width: 50%;
+    width: 45%;
 
     input {
         border-radius: 30px;
     }
 
     button {
-        background-color: $black;
+        background-color: $white;
         border-top-right-radius: 30px;
         border-bottom-right-radius: 30px;
         border: none;
         transition: background-color 0.2s;
 
+        i {
+            color: $black;
+        }
+
         &:hover {
-            background-color: black;
+            background-color: #000;
+
+            i {
+                color: $white;
+            }
         }
     }
+
 }
 
 
@@ -84,7 +93,7 @@ export default {
 input:focus {
     outline-style: none;
     box-shadow: none;
-    border-color: transparent;
-    box-shadow: 20px 20px 25px rgba(0, 0, 0, 0.7);
+    border-right-color: rgba($black, 0.3);
+    box-shadow: -5px 25px 25px rgba(0, 0, 0, 0.7);
 }
 </style>

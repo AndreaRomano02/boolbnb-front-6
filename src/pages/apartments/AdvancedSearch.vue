@@ -1,9 +1,9 @@
 <script>
-import ApartmentList from '../../components/apartments/ApartmentList.vue';
 import AppHeader from '../../components/AppHeader.vue';
+import ApartmentList from '../../components/apartments/ApartmentList.vue';
 
 export default {
-    name: "ApartmentsPage",
+    name: "AdvancedSearch",
     components: { AppHeader, ApartmentList },
     data() {
         return {
