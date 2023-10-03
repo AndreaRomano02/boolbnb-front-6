@@ -26,7 +26,7 @@ export default {
 
             ScrollTrigger.create({
                 trigger: '#app-header',
-                start: '+=627px top',
+                start: '+=670px top',
                 onEnter: () => {
                     this.isScrolled = true;
                 },
@@ -56,27 +56,27 @@ export default {
                         <li class="nav-item d-flex align-items-center">
 
                             <router-link :to="{ name: 'home' }" class="router-link d-flex align-items-center">
-                                <i class="material-icons text-white fs-2 me-2">home</i>
+                                <i class="material-icons fs-2 me-2">home</i>
                                 <span>Home</span>
                             </router-link>
                         </li>
                         <li class="nav-item d-flex align-items-center">
                             <router-link :to="{ name: 'apartments' }" class="router-link d-flex align-items-center">
-                                <i class="material-icons text-white fs-2 me-2">apartment</i>
+                                <i class="material-icons fs-2 me-2">apartment</i>
                                 <span>Appartamenti</span>
                             </router-link>
                         </li>
                         <li class="nav-item d-flex align-items-center pt-1">
                             <a href="http://127.0.0.1:8000/register" class="router-link d-flex align-items-center"
                                 target="_blank">
-                                <i class="material-icons text-white fs-2 me-2">person</i>
+                                <i class="material-icons fs-2 me-2">person</i>
                                 <span>Registrati</span>
                             </a>
                         </li>
                         <li class="nav-item d-flex align-items-center">
                             <a href="http://127.0.0.1:8000/login" class="router-link d-flex align-items-center"
                                 target="_blank">
-                                <i class="material-icons text-white fs-2 me-2">login</i>
+                                <i class="material-icons fs-2 me-2">login</i>
                                 <span>Login</span>
                             </a>
                         </li>
@@ -97,7 +97,22 @@ export default {
 }
 
 .otherpage-header {
-    background-color: $orange;
+    background-color: $white;
+    box-shadow: 1px 1px 3px rgba($black, 0.3);
+
+    .router-link {
+        color: $black;
+        transition: color 0.150s;
+
+        &:hover {
+            color: $orange;
+        }
+    }
+
+    img {
+        filter: brightness(0);
+    }
+
 }
 
 .header-scrolled {
