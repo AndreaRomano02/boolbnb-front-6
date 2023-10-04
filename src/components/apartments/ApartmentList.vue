@@ -2,6 +2,7 @@
 import ApartmentCard from './ApartmentCard.vue';
 
 import axios from "axios";
+import { store } from '../../data/store';
 
 export default {
     name: "ApartmentList",
@@ -10,23 +11,12 @@ export default {
     data() {
         return {
             apartments: [],
+            store,
             is_loading: false,
         };
     },
-    methods: {
-        getApartments() {
-            this.is_loading = true;
-            axios.get("http://127.0.0.1:8000/api/apartments").then(res => {
-                this.apartments = res.data;
-            }).catch(err => {
-                console.error(err)
-            }).then(() => {
-                this.is_loading = false;
-            })
-        },
-    },
     created() {
-        this.getApartments();
+        this.store.apartments = this.apartments;
     },
 };
 </script>

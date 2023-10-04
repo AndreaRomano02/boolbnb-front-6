@@ -10,21 +10,10 @@ export default {
 </script>
 
 <template>
-    <!-- <div class="card">
-        <img v-if="apartment.images.length" class="card-img-top"
-            :src="`http://127.0.0.1:8000/storage/${this.apartment.images[0].path}`" />
-        <div class="card-body">
-            <h5 class="card-title">{{ apartment.title }}</h5>
-            <p class="card-text">{{ apartment.description }}</p>
-            <router-link class="btn btn-sm btn-primary"
-                :to="{ name: 'SingleApartment', params: { id: apartment.id } }">Guarda il
-                progetto</router-link>
-        </div>
-    </div> -->
     <div class="apartment-card">
         <router-link :to="{ name: 'SingleApartment', params: { id: apartment.id } }">
             <div class="card-image">
-                <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
+                <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${this.apartment.images[0].path}`"
                     alt="Apartment Image" />
             </div>
         </router-link>

@@ -1,5 +1,1 @@
-const api = {
-    baseUri: 'http://localhost',
-};
-
-export { api };
+export const baseUri = 'http://localhost:8000';
