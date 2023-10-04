@@ -70,14 +70,7 @@ export default {
                             <a href="http://127.0.0.1:8000/register" class="router-link d-flex align-items-center"
                                 target="_blank">
                                 <i class="material-icons fs-2 me-2">person</i>
-                                <span>Registrati</span>
-                            </a>
-                        </li>
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="http://127.0.0.1:8000/login" class="router-link d-flex align-items-center"
-                                target="_blank">
-                                <i class="material-icons fs-2 me-2">login</i>
-                                <span>Login</span>
+                                <span>Dashboard</span>
                             </a>
                         </li>
                     </ul>
