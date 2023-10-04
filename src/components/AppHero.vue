@@ -1,4 +1,7 @@
 <script>
+import axios from "axios";
+import { api } from "../data";
+import { store } from "../data/store";
 import AppSearchTerm from './AppSearchTerm.vue';
 
 export default {
