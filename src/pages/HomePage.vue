@@ -69,8 +69,7 @@ export default {
 <template>
     <main>
         <AppHeader :is-home-page="isHomePage" />
-        <AppHero :apartments="store.apartments" @address-change="onAddressChange" @form-submit="onFormSubmit"
-            @distance-change="onDistanceChange" />
+        <AppHero @address-change="onAddressChange" @form-submit="onFormSubmit" @distance-change="onDistanceChange" />
         <AppLoader v-if="isLoading" />
         <div v-else class="pt-4">
             <div v-if="!hasFiltered || !apartments.length">
