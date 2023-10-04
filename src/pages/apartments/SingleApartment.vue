@@ -58,15 +58,13 @@ export default {
 
         <div class="mb-3 d-flex align-items-center justify-content-between">
             <div>
-                <span>4.83</span>
-                <span>{{ apartment.title }}</span>
                 <span>{{ apartment.address }}</span>
             </div>
 
             <div class="material-google">
 
-                <a href="#" class="text-decoration-none text-dark"> Share</a> <i class="material-icons">favorite</i>
-                <a href="#" class="text-decoration-none text-dark">Save </a> <i class="material-icons">ios_share</i>
+                <a href="#" class="text-decoration-none text-dark"> Save <i class="material-icons">favorite</i></a><br>
+                <a href="#" class="text-decoration-none text-dark">Share <i class="material-icons">ios_share</i></a>
 
             </div>
         </div>
@@ -117,89 +115,56 @@ export default {
                     <div>
                         <h6>{{ apartment.title }}</h6>
 
-                        <span>3 guest</span><span>1bedroom</span><span>2beds</span><span>1bath</span>
+                        <span>{{ apartment.square_meters }}mq</span>
                     </div>
-
-                    <div class="col-md-1 my-img-style-3">
-                        <img v-if="apartment.images.length"
-                            :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="rounded image"
-                            class="rounded-circle object-fit-cover" style="" />
-                    </div>
-
                 </div>
                 <hr>
 
+
                 <div>
                     <span>
-                        <b>{{ apartment.address }}</b>
-                    </span>
-                    <p>
-                        You'll have the house to yourself
-                    </p>
-                </div>
-                <div>
+                        Camere da letto:
+                    </span><br>
                     <span>
                         <b>{{ apartment.beds }}</b>
                     </span>
-                    <p>
-                        You'll have the house to yourself
-                    </p>
                 </div>
                 <div>
+                    <span>
+                        Camere:
+                    </span><br>
                     <span>
                         <b>{{ apartment.rooms }}</b>
                     </span>
-                    <p>
-                        You'll have the house to yourself
-                    </p>
                 </div>
                 <div>
                     <span>
+                        Bagni:
+                    </span><br>
+                    <span>
                         <b>{{ apartment.bathrooms }}</b>
                     </span>
-                    <p>
-                        You'll have the house to yourself
-                    </p>
                 </div>
                 <hr>
-                <div class="mb-5">
-                    {{ apartment.description }} <a href="">read more</a>
-                </div>
             </div>
 
-
-
-
-
-
             <div class="col-6 d-block my-txt-cnt">
-                <h6>185 euro/night</h6>
-                <div>
-                    <button class="btn btn-danger form-control">Check availability</button>
-                </div>
-
+                <h4 class="text-end">€185 / night</h4>
                 <div>
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
+                            <h5 class="card-title">Descrizione</h5>
                             <p class="card-text">{{ apartment.description }}</p>
                         </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-danger form-control">Check availability</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mt-5 d-flex justify-content-between align-content-center">
-            <div class="mb-4">
-                <h6>{{ apartment.title }}</h6>
-            </div>
-            <div>
-                <span class="align-top">1/3 </span>
-                <span class="align-top">prev</span>
-                <span class="badge badge-primary"><i class="material-icons">navigate_before</i></span>
-                <span class="badge badge-primary"><i class="material-icons">navigate_next</i></span>
-            </div>
-        </div>
+
 
         <div class="row d-flex justify-content-center">
             <div class="col-3" v-for="ap in apartments" :key="apartment.id" sty>
