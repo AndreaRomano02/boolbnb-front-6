@@ -169,7 +169,7 @@ export default {
 
 
 
-        <div class="mt-5 row d-flex justify-content-center">
+        <!-- <div class="mt-5 row d-flex justify-content-center">
             <div class="col-3" v-for="ap in apartments" :key="apartment.id" sty>
                 <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
                     alt="Apartment Image" class="img-fluid object-fit-cover" />
@@ -184,11 +184,7 @@ export default {
                     <p>150/night</p>
                 </div>
             </div>
-
-
-
-
-        </div>
+        </div> -->
 
     </div>
 </template>
