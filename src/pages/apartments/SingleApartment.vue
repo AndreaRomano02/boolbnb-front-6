@@ -50,30 +50,6 @@ export default {
 
 <template>
     <AppLoader v-if="is_loading" />
-    <!-- 
-    <div class='container py-3' v-else>
-        <div class='row'>
-            <div class="col-6">
-                <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${this.apartment.images[0].path}`"
-                    class="img-fluid " :alt="apartment.title" />
-            </div>
-            <div class="col-6">
-                <ul>
-                    <li class='pb-3'>
-                        <h2>{{ apartment.title }}</h2>
-                    </li>
-                    <li><strong>Numero stanze:</strong> {{ apartment.rooms }}</li>
-                    <li><strong>Numero letti:</strong> {{ apartment.beds }}</li>
-                    <li><strong>Numero bagni:</strong> {{ apartment.bathrooms }}</li>
-                    <li><strong>Indirizzo:</strong> {{ apartment.address }}</li>
-                    <li><strong>Descrizione:</strong> {{ apartment.description }}</li>
-                    <li><strong>Dimensione dell'appartamento:</strong> {{ apartment.square_meters }} metri quadrati</li>
-                </ul>
-            </div>
-        </div>
-        <router-link class="btn btn-sm btn-primary" :to="{ name: 'apartments' }">Torna agli appartamenti</router-link>
-    </div>
-    -->
 
     <div class="container">
         <div class="mt-4">
@@ -87,50 +63,46 @@ export default {
                 <span>{{ apartment.address }}</span>
             </div>
 
-            <div class="">
-                <span>Share</span>
-                <span>Save</span>
+            <div class="material-google">
+
+                <a href="#" class="text-decoration-none text-dark"> Share</a> <i class="material-icons">favorite</i>
+                <a href="#" class="text-decoration-none text-dark">Save </a> <i class="material-icons">ios_share</i>
+
             </div>
         </div>
 
         <div class="">
             <div class="row">
-                <!-- Left column with a single image -->
-                <div class="col-md-6 my-mrg-mob">
+                <div class="col-md-6 my-img-style-1">
                     <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
-                        alt="Apartment Image" class="img-fluid"
-                        style="border-top-left-radius: 9px; border-bottom-left-radius: 9px;" />
+                        alt="Apartment Image" class="img-fluid object-fit-cover" style="height: 436px;" />
                 </div>
 
+                <div class="col-md-6 ">
+                    <div class="row my-img-style-2">
 
-                <!-- Right column with 4 images -->
-                <div class="col-md-6 my-mrg-top-30">
-                    <div class="row">
-                        <!-- Top-left image -->
-                        <div class="d-block my-mrg-mob my-img-query" style="flex-basis: 50%;">
+                        <div class="d-block w-50">
                             <img v-if="apartment.images.length"
                                 :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                class="img-fluid" style="height: 300px; width: 315px; object-fit: cover; " />
+                                class="img-fluid object-fit-cover" />
                         </div>
-                        <!-- Top-right image -->
-                        <div class="d-block my-mrg-mob my-img-query" style="flex-basis: 50%;">
+
+                        <div class="d-block  w-50">
                             <img v-if="apartment.images.length"
                                 :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                class="img-fluid"
-                                style="height: 300px; width: 315px; object-fit: cover; border-top-right-radius: 9px;" />
+                                class="img-fluid rounded-right object-fit-cover" />
                         </div>
-                        <!-- Bottom-left image -->
-                        <div class="d-block my-mrg-mob my-img-query" style="flex-basis: 50%;">
+
+                        <div class="d-block  w-50">
                             <img v-if="apartment.images.length"
                                 :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                class="img-fluid" style="height: 300px; width: 315px; object-fit: cover" />
+                                class="img-fluid object-fit-cover" />
                         </div>
-                        <!-- Bottom-right image -->
-                        <div class="d-block my-mrg-mob my-img-query" style="flex-basis: 50%;">
+
+                        <div class="d-block w-50">
                             <img v-if="apartment.images.length"
                                 :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                class="img-fluid"
-                                style="height: 300px; width: 315px; object-fit: cover; border-bottom-right-radius: 9px;" />
+                                class="img-fluid object-fit-cover" />
                         </div>
                     </div>
                 </div>
@@ -138,12 +110,25 @@ export default {
             </div>
         </div>
 
-        <div class="mt-5 d-flex justify-content-between align-content-center my-mdquer">
+        <div class="mt-5 d-flex justify-content-between align-content-center">
 
-            <div class="col-md-5 my-mrg-mob">
-                <h6>{{ apartment.title }}</h6>
-                <p><span>3 guest</span><span>1bedroom</span><span>2beds</span><span>1bath</span></p>
+            <div class="col-md-5 ">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6>{{ apartment.title }}</h6>
+
+                        <span>3 guest</span><span>1bedroom</span><span>2beds</span><span>1bath</span>
+                    </div>
+
+                    <div class="col-md-1 my-img-style-3">
+                        <img v-if="apartment.images.length"
+                            :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="rounded image"
+                            class="rounded-circle object-fit-cover" style="" />
+                    </div>
+
+                </div>
                 <hr>
+
                 <div>
                     <span>
                         <b>{{ apartment.address }}</b>
@@ -178,18 +163,11 @@ export default {
                 </div>
                 <hr>
                 <div class="mb-5">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque ipsa aliquam et aliquid blanditiis
-                    dolores quisquam rerum nostrum, earum eligendi vitae qui, porro commodi nulla, officiis quos natus culpa
-                    quibusdam. <a href="">read more</a>
+                    {{ apartment.description }} <a href="">read more</a>
                 </div>
             </div>
 
-            <div class="col-md-1 my-mrg-top-30 my-txt-cnt">
 
-
-                <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
-                    alt="rounded image" class="rounded-circle img-thumbnail" style="height: 90px; width: 90px;" />
-            </div>
 
 
 
@@ -204,9 +182,7 @@ export default {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                            </p>
+                            <p class="card-text">{{ apartment.description }}</p>
                         </div>
                     </div>
                 </div>
@@ -218,18 +194,17 @@ export default {
                 <h6>{{ apartment.title }}</h6>
             </div>
             <div>
-                <span>1/3 </span>
-                <span>prev</span>
-                <span><i class="material-icons">navigate_before</i></span>
-                <span><i class="material-icons">navigate_next</i></span>
+                <span class="align-top">1/3 </span>
+                <span class="align-top">prev</span>
+                <span class="badge badge-primary"><i class="material-icons">navigate_before</i></span>
+                <span class="badge badge-primary"><i class="material-icons">navigate_next</i></span>
             </div>
         </div>
 
         <div class="row d-flex justify-content-center">
-            <div class="col-3 ddd" v-for="ap in apartments" :key="apartment.id" sty>
-                <!--     <img src="https://picsum.photos/seed/picsum/300" alt="Left Image" class="img-fluid">  -->
+            <div class="col-3" v-for="ap in apartments" :key="apartment.id" sty>
                 <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
-                    alt="Apartment Image" class="img-fluid" style="height: 190px; width: 190px; object-fit: cover" />
+                    alt="Apartment Image" class="img-fluid object-fit-cover" />
                 <div>
                     {{ ap.title }}
 
@@ -283,34 +258,26 @@ export default {
 }
 
 
-@media only screen and (max-width: 900px) {
-    .my-mdquer {
+.my-img-style-1 img {
+    height: 436px;
+    width: px;
+    padding: px;
+}
 
-        display: flex;
-        flex-direction: column;
-        text-align: center
-    }
+.my-img-style-2 img {
+    height: 220px;
+    width: 315px;
+    padding: 3px;
+}
 
-    .my-mrg-mob {
-        margin-bottom: 20px;
-        margin: auto;
-    }
-
-
-
-    .my-txt-cnt {
-        margin: auto
-    }
-
-    .ddd {
-        width: 40%;
-    }
+.my-img-style-3 img {
+    height: 90px;
+    width: 90px;
 }
 
 
-@media only screen and (max-width: 756px) {
-    .my-mrg-top-30 {
-        margin-top: 40px;
-    }
+.material-google i {
+    font-size: 16px;
 }
 </style>
+
