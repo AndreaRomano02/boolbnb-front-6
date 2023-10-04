@@ -10,7 +10,7 @@ export default {
             rangeValue: 20,
         }
     },
-    emits: ['address-change', 'form-submit']
+    emits: ['address-change', 'form-submit', 'distance-change']
 };
 </script>
 
@@ -22,9 +22,10 @@ export default {
             <button class="d-flex align-items-center" type="submit" id="button-addon2"><i
                     class="material-icons fs-5 px-4">search</i></button>
         </div>
-        <div class="d-flex align-items-center">
+        <div v-if="searchAddress.length" class="d-flex align-items-center">
             <label for="distance-range" class="ms-5 px-3">Distanza</label>
-            <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="100" v-model="rangeValue">
+            <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="100" v-model="rangeValue"
+                @input="$emit('distance-change', rangeValue)">
             <span class="ms-2 fs-5">{{ rangeValue }} Km</span>
         </div>
     </form>

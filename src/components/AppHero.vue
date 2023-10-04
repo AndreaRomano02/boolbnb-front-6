@@ -7,13 +7,18 @@ export default {
     data() {
         return {
             searchAddress: '',
+            rangeValue: 20,
         }
     },
-    emits: ['address-change', 'form-submit'],
+    emits: ['address-change', 'form-submit', 'distance-change'],
     methods: {
         onAddressChange(input) {
             this.searchAddress = input;
             this.$emit('address-change', this.searchAddress);
+        },
+        onDistanceChange(input) {
+            this.rangeValue = input;
+            this.$emit('distance-change', this.rangeValue);
         }
     }
 
@@ -27,7 +32,8 @@ export default {
             <div>
                 <h1 class="ps-5 display-1">il tuo<br>viaggio,<br>la tua<br>storia.</h1>
             </div>
-            <AppSearchTerm @address-change="onAddressChange" @form-submit="$emit('form-submit')" />
+            <AppSearchTerm @address-change="onAddressChange" @form-submit="$emit('form-submit')"
+                @distance-change="onDistanceChange" />
         </div>
     </div>
 </template>
