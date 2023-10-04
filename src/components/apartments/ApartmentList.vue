@@ -1,22 +1,17 @@
 <script>
 import ApartmentCard from './ApartmentCard.vue';
 
-import axios from "axios";
-import { store } from '../../data/store';
-
 export default {
     name: "ApartmentList",
     components:
         { ApartmentCard },
+    props: {
+        apartments: Array,
+    },
     data() {
         return {
-            apartments: [],
-            store,
             is_loading: false,
         };
-    },
-    created() {
-        this.store.apartments = this.apartments;
     },
 };
 </script>
@@ -28,7 +23,7 @@ export default {
         <div class="wrapper px-4">
             <div class="row ">
                 <div class="col-3 mb-5" v-for="apartment in apartments" :key="apartment.id">
-                    <ApartmentCard :apartment="apartment" @deleted="getApartments" />
+                    <ApartmentCard :apartment="apartment" />
                 </div>
             </div>
         </div>

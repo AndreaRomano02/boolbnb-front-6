@@ -1,12 +1,14 @@
 <script>
 import ApartmentList from '../../components/apartments/ApartmentList.vue';
 import AppHeader from '../../components/AppHeader.vue';
+import { store } from '../../data/store';
 
 export default {
     name: "ApartmentsPage",
     components: { AppHeader, ApartmentList },
     data() {
         return {
+            store,
             isHomePage: false,
         };
     },
@@ -16,7 +18,7 @@ export default {
 <template>
     <AppHeader :is-home-page="isHomePage" />
     <div class="pt-5 mt-5">
-        <ApartmentList />
+        <ApartmentList :apartments="store.apartments" />
     </div>
 </template>
 

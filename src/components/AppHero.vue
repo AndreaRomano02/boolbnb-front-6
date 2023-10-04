@@ -1,7 +1,4 @@
 <script>
-import axios from "axios";
-import { baseUri } from "../data";
-import { store } from "../data/store";
 import AppSearchTerm from './AppSearchTerm.vue';
 
 export default {
@@ -9,51 +6,19 @@ export default {
     components: { AppSearchTerm },
     data() {
         return {
-            apartments: [],
-            addressFilter: '',
-            store,
-            baseUri,
-            formSubmit: false,
+            searchAddress: '',
         }
     },
+    emits: ['address-change', 'form-submit'],
     methods: {
-
         onAddressChange(input) {
-
-            this.addressFilter = input;
-
-            if (this.formSubmit) {
-
-                const axiosConfig = {
-                    params: {
-                        city: this.addressFilter,
-                    },
-                };
-
-                axios.get(`${baseUri}/api/apartments`, axiosConfig)
-                    .then(res => {
-                        res.data = this.apartment
-                        console.log('ciao')
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            };
-        },
-
-        fetchApartment() {
-            axios.get(`${baseUri}/api/apartments`)
-                .then(res => {
-                    this.store.apartments = res.data
-                    console.log(this.store.apartments)
-                })
+            this.searchAddress = input;
+            this.$emit('address-change', this.searchAddress);
         }
-    },
-    created() {
-        this.fetchApartment();
-        this.apartments = this.store.apartments;
-    },
-};
+    }
+
+
+}
 </script>
 
 <template>
@@ -62,7 +27,7 @@ export default {
             <div>
                 <h1 class="ps-5 display-1">il tuo<br>viaggio,<br>la tua<br>storia.</h1>
             </div>
-            <AppSearchTerm @address-change="onAddressChange" @form-submit="formSubmit = true" />
+            <AppSearchTerm @address-change="onAddressChange" @form-submit="$emit('form-submit')" />
         </div>
     </div>
 </template>
