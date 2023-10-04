@@ -1,21 +1,20 @@
 <script>
 import axios from 'axios';
+import AppHeader from '../../components/AppHeader.vue';
 
 export default {
     name: 'SingleApartment',
-
-
+    components: 'AppHeader',
     data() {
         return {
             apartment: {},
             apartments: {},
             is_loading: false,
-        }
+        };
     },
-
     created() {
         this.getSingleApartment(),
-            this.getApartments()
+            this.getApartments();
     },
     methods: {
         getApartments() {
@@ -32,26 +31,30 @@ export default {
             axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
                 this.apartment = res.data;
             }).catch(err => {
-                this.$router.push('/not-found-page')
+                this.$router.push('/not-found-page');
             }).then(() => {
                 this.is_loading = false;
             });
         },
         destroy(id) {
             axios.delete(`http://127.0.0.1:8000/api/apartments/${id}`).then(res => {
-                this.$router.push('/apartments')
-            })
+                this.$router.push('/apartments');
+            });
         }
     },
+    components: { AppHeader }
 }
 
 </script>
 
 
 <template>
+    <AppHeader></AppHeader>
+    <br>
+    <br>
     <AppLoader v-if="is_loading" />
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="mt-4">
             <h6>{{ apartment.title }}</h6>
         </div>
@@ -113,9 +116,9 @@ export default {
             <div class="col-md-5 ">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <h6>{{ apartment.title }}</h6>
+                        <h6>Grandezza: {{ apartment.square_meters }}mq</h6>
 
-                        <span>{{ apartment.square_meters }}mq</span>
+                        <span>{{ apartment.description }}</span>
                     </div>
                 </div>
                 <hr>
@@ -153,12 +156,12 @@ export default {
                 <div>
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Descrizione</h5>
-                            <p class="card-text">{{ apartment.description }}</p>
+                            <h5 class="card-title">Contatta</h5>
+                            <textarea></textarea>
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-danger form-control">Check availability</button>
+                        <button class="btn btn-danger form-control">Invia Messaggio</button>
                     </div>
                 </div>
             </div>
@@ -166,7 +169,7 @@ export default {
 
 
 
-        <div class="row d-flex justify-content-center">
+        <div class="mt-5 row d-flex justify-content-center">
             <div class="col-3" v-for="ap in apartments" :key="apartment.id" sty>
                 <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
                     alt="Apartment Image" class="img-fluid object-fit-cover" />
@@ -178,7 +181,6 @@ export default {
                     {{ ap.description }}
                 </div>
                 <div>
-
                     <p>150/night</p>
                 </div>
             </div>
@@ -213,11 +215,6 @@ export default {
 
     ul {
         list-style-type: none;
-
-        // h2{
-        //     border-bottom: 1px solid rgb(158, 152, 152);
-        //     box-shadow: 5px 5px;
-        // }
     }
 
 }
@@ -243,6 +240,11 @@ export default {
 
 .material-google i {
     font-size: 16px;
+}
+
+textarea {
+    min-height: 100px;
+    min-width: 100%;
 }
 </style>
 
