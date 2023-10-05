@@ -25,12 +25,24 @@ export default {
             store,
             form: { ...formField },
             apartments: [],
+            errors: {},
             isLoading: false,
         };
     },
+    computed: {
+        hasErrors() {
+            return Object.keys(this.errors).length;
+        }
+    },
     methods: {
         filteredApartments() {
-            console.log(this.form.services)
+
+            this.validateAdvancedSearch();
+
+            if (this.hasErrors) {
+                return;
+            }
+
             this.apartments = [];
             const params = {
                 params: {
@@ -38,11 +50,10 @@ export default {
                     range: this.form.range,
                     beds: this.form.beds,
                     rooms: this.form.rooms,
-                    // services: this.form.services, 
+                    services: this.form.services,
                 }
             };
             this.isLoading = true;
-            console.log(params);
             axios.get(endpoint, params)
                 .then((res) => {
                     console.log(res.data)
@@ -52,6 +63,7 @@ export default {
                     this.isLoading = false;
                 })
         },
+
         fetchServices() {
             this.isLoading = true;
             axios.get(servicesEndpoint).then((res) => {
@@ -60,6 +72,27 @@ export default {
                 .then(() => {
                     this.isLoading = false;
                 })
+        },
+
+        validateAdvancedSearch() {
+            this.errors = {};
+
+            // city
+            if (!this.form.city) {
+                this.errors.city = 'Inserisci un Indirizzo';
+            }
+            // range
+            if (!this.form.range || this.form.range < 0) {
+                this.errors.range = "La Distanza non può essere minore di zero.";
+            }
+            // beds
+            if (isNaN(this.form.beds) || this.form.beds < 0) {
+                this.errors.beds = "Il Numero di Letti è insufficiente.";
+            }
+            // rooms
+            if (isNaN(this.form.rooms) || this.form.rooms < 0) {
+                this.errors.rooms = "Il Numero di Stanze è insufficiente.";
+            }
         }
     },
     created() {
@@ -81,21 +114,33 @@ export default {
                     <div class="form-group px-5">
                         <label for="city" class="fs-5 me-2 mb-1 d-block">Città</label>
                         <input type="text" id="city" name="city" v-model="form.city">
+                        <div>
+                            <small v-if="errors.city" class="text-danger feedback-address">{{ errors.city }}</small>
+                        </div>
                     </div>
 
                     <div class="form-group px-5">
                         <label for="range" class="fs-5 me-2 mb-1 d-block">Distanza</label>
                         <input type="range" id="range" name="range" v-model="form.range">
+                        <div>
+                            <small v-if="errors.range" class="text-danger feedback-address">{{ errors.range }}</small>
+                        </div>
                     </div>
 
                     <div class="form-group px-5">
                         <label for="beds" class="fs-5 me-2 mb-1 d-block">Numero Posti Letto</label>
                         <input type="number" id="beds" name="beds" v-model="form.beds">
+                        <div>
+                            <small v-if="errors.beds" class="text-danger feedback-address">{{ errors.beds }}</small>
+                        </div>
                     </div>
 
                     <div class="form-group px-5">
                         <label for="rooms" class="fs-5 me-2 mb-1 d-block">Numero Stanze</label>
                         <input type="number" id="rooms" name="rooms" v-model="form.rooms">
+                        <div>
+                            <small v-if="errors.rooms" class="text-danger feedback-address">{{ errors.rooms }}</small>
+                        </div>
                     </div>
                 </div>
 
