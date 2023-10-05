@@ -66,34 +66,32 @@ export default {
 };
 </script>
 <template>
-    <div @click="handleClickOutside">
-        <form @submit.prevent="$emit('form-submit')">
-            <div class="searchbar input-group ps-5">
-                <!-- Aggiungi l'input text -->
-                <input type="text" v-model="searchAddress" class="form-control" placeholder="Cerca una destinazione"
-                    aria-describedby="button-addon2" @input="handleInput" @blur="closeSuggestions">
+    <form @submit.prevent="$emit('form-submit')">
+        <div class="searchbar input-group ps-5">
+            <!-- Aggiungi l'input text -->
+            <input type="text" v-model="searchAddress" class="form-control" placeholder="Cerca una destinazione"
+                aria-describedby="button-addon2" @input="handleInput">
+            <router-link :to="{ name: 'AdvancedSearch', query: { address: searchAddress } }">
                 <button class="d-flex align-items-center" type="submit" id="button-addon2"><i
                         class="material-icons fs-5 px-4">search</i></button>
-            </div>
-            <!-- Dropdown per i suggerimenti (con un massimo di 4 risultati) -->
-            <div v-if="suggestions.length > 0" class="position-relative">
-                <ul class="dropdown-menu" aria-labelledby="searchAddress" style="display: block;">
-                    <li v-for="(suggestion, index) in suggestions.slice(0, 4)" :key="suggestion"
-                        @click="handleSuggestionSelected(suggestion)" class="dropdown-item">
-                        {{ suggestion }}
-                    </li>
-                </ul>
-            </div>
-
-
-            <div v-if="searchAddress.length" class="d-flex align-items-center pt-3">
-                <label for="distance-range" class="ms-5 px-3">Distanza</label>
-                <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="100" v-model="rangeValue"
-                    @input="$emit('distance-change', rangeValue)">
-                <span class="ms-2 fs-5">{{ rangeValue }} Km</span>
-            </div>
-        </form>
-    </div>
+            </router-link>
+        </div>
+        <!-- Dropdown per i suggerimenti (con un massimo di 4 risultati) -->
+        <div v-if="suggestions.length > 0" class="position-relative">
+            <ul class="dropdown-menu" aria-labelledby="searchAddress" style="display: block;">
+                <li v-for="(suggestion, index) in suggestions.slice(0, 4)" :key="suggestion"
+                    @click="handleSuggestionSelected(suggestion)" class="dropdown-item">
+                    {{ suggestion }}
+                </li>
+            </ul>
+        </div>
+        <div v-if="searchAddress.length" class="d-flex align-items-center mt-3">
+            <label for="distance-range" class="ms-5 px-3">Distanza</label>
+            <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="100" v-model="rangeValue"
+                @input="$emit('distance-change', rangeValue)">
+            <span class="ms-2 fs-5">{{ rangeValue }} Km</span>
+        </div>
+    </form>
 </template>
 
 
