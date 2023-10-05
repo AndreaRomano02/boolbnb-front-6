@@ -1,4 +1,5 @@
 <script>
+import VueAutosuggest from 'vue-autosuggest';
 import { store } from '../data/store';
 
 export default {
@@ -8,19 +9,72 @@ export default {
             searchAddress: '',
             store,
             rangeValue: 20,
-        }
+            suggestions: [], // Array per immagazzinare i suggerimenti
+        };
     },
-    emits: ['address-change', 'form-submit', 'distance-change']
+    emits: ['address-change', 'form-submit', 'distance-change'],
+    computed: {
+        // Proprietà di input per Vue-Autosuggest
+        inputProps() {
+            return {
+                value: this.searchAddress,
+                placeholder: 'Cerca una destinazione',
+            };
+        },
+    },
+    methods: {
+        // Gestisci la selezione di un suggerimento
+        handleSuggestionSelected(suggestion) {
+            this.searchAddress = suggestion;
+            this.suggestions = []; // Pulisci i suggerimenti dopo la selezione
+            this.$emit('address-change', suggestion);
+        },
+
+        // Gestisci l'input dell'utente
+        handleInput() {
+            // Effettua una chiamata API a TomTom solo se la lunghezza della query è maggiore di 2 (per evitare chiamate inutili)
+            if (this.searchAddress.length > 2) {
+                this.fetchSuggestionsFromApi(this.searchAddress); // Effettua una chiamata API per i suggerimenti
+            } else {
+                this.suggestions = []; // Se la query è troppo breve, svuota i suggerimenti
+            }
+        },
+
+        // Effettua una chiamata API a TomTom per ottenere i suggerimenti
+        async fetchSuggestionsFromApi(query) {
+            // Esegui una chiamata API a TomTom utilizzando la tua API Key
+            const apiKey = 'PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+            const apiUrl = `https://api.tomtom.com/search/2/search/${encodeURIComponent(query)}.json?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                // Estrai i suggerimenti dalla risposta API e assegna a `suggestions`
+                this.suggestions = data.results.map(result => result.address.freeformAddress);
+            } catch (error) {
+                console.error('Errore nella chiamata API di TomTom:', error);
+            }
+        },
+    },
 };
 </script>
-
 <template>
     <form @submit.prevent="$emit('form-submit')">
         <div class="searchbar input-group pb-4 ps-5">
-            <input type="text" v-model.trim="searchAddress" class="form-control" placeholder="Cerca una destinazione"
-                aria-describedby="button-addon2" @keyup="$emit('address-change', searchAddress)">
+            <!-- Aggiungi l'input text -->
+            <input type="text" v-model="searchAddress" class="form-control" placeholder="Cerca una destinazione"
+                aria-describedby="button-addon2" @input="handleInput">
             <button class="d-flex align-items-center" type="submit" id="button-addon2"><i
                     class="material-icons fs-5 px-4">search</i></button>
+        </div>
+        <!-- Mostra i suggerimenti -->
+        <div v-if="suggestions.length" class="text-white">
+            <ul>
+                <li v-for="suggestion in suggestions" :key="suggestion" @click="handleSuggestionSelected(suggestion)">
+                    {{ suggestion }}
+                </li>
+            </ul>
         </div>
         <div v-if="searchAddress.length" class="d-flex align-items-center">
             <label for="distance-range" class="ms-5 px-3">Distanza</label>
@@ -30,6 +84,12 @@ export default {
         </div>
     </form>
 </template>
+
+
+
+
+
+  
 
 
 <style lang="scss" scoped>
