@@ -19,6 +19,11 @@ export default {
         </router-link>
         <div class="card-content">
             <h2 class="card-title">{{ apartment.title }}</h2>
+            <p>{{ apartment.address }}</p>
+            <div v-if="apartment.distance_center">
+                <p>{{ apartment.distance_center }} km dal centro</p>
+            </div>
+            <p>{{ apartment.price }}€/notte</p>
             <p class="card-description">{{ apartment.description }}</p>
         </div>
     </div>
