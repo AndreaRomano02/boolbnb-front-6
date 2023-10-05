@@ -4,7 +4,7 @@ import AppHeader from '../../components/AppHeader.vue';
 
 export default {
     name: 'SingleApartment',
-    components: 'AppHeader',
+    components: { AppHeader },
     data() {
         return {
             apartment: {},
@@ -49,7 +49,7 @@ export default {
 
 
 <template>
-    <AppHeader></AppHeader>
+    <AppHeader />
     <br>
     <br>
     <AppLoader v-if="is_loading" />
