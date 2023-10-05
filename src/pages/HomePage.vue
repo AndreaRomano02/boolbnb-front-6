@@ -1,15 +1,14 @@
 <script>
 import axios from 'axios';
 import { endpoint } from '../data';
-import AppLoader from '../components/AppLoader.vue';
-import ApartmentList from '../components/apartments/ApartmentList.vue';
+import AppLoader from '../components/AppLoader.vue'
 import { store } from "../data/store";
 import ApartmentCard from '../components/apartments/ApartmentCard.vue';
 import AppHeader from '../components/AppHeader.vue';
 import AppHero from '../components/AppHero.vue';
 export default {
     name: 'HomePage',
-    components: { AppHeader, AppHero, ApartmentList, AppLoader, ApartmentCard },
+    components: { AppHeader, AppHero, AppLoader, ApartmentCard },
     data() {
         return {
             endpoint,
@@ -70,7 +69,7 @@ export default {
     <main>
         <AppHeader :is-home-page="isHomePage" />
         <AppHero @address-change="onAddressChange" @form-submit="onFormSubmit" @distance-change="onDistanceChange" />
-        <div class="container-fluid d-flex justify-content-between px-5 pt-5">
+        <!-- <div class="container-fluid d-flex justify-content-between px-5 pt-5">
 
             <h1 class="fw-bold ms-4">Lasciati ispirare..</h1>
 
@@ -79,9 +78,9 @@ export default {
                 <span>Filtri</span>
             </router-link>
 
-        </div>
+        </div> -->
         <AppLoader v-if="isLoading" />
-        <div v-else>
+        <!-- <div v-else>
             <div v-if="!hasFiltered || !apartments.length">
                 <h1 v-if="hasFiltered && !apartments.length" class="text-center text-danger border-bottom pb-3">Non ci sono
                     appartamenti con
@@ -92,7 +91,7 @@ export default {
             <div v-else>
                 <ApartmentList class="my-5" :apartments="apartments" />
             </div>
-        </div>
+        </div> -->
     </main>
 </template>
 
