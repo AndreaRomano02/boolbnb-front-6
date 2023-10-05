@@ -122,7 +122,7 @@ export default {
                     </div>
 
                 </div>
-                <button class="submit">Vai</button>
+                <button class="submit btn btn-primary text-center">Vai</button>
             </form>
 
         </div>

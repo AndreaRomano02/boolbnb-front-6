@@ -152,7 +152,7 @@ export default {
             </div>
 
             <div class="col-6 d-block my-txt-cnt">
-                <h4 class="text-end">€185 / night</h4>
+                <h4 class="text-end">€{{ apartment.price }} / night</h4>
                 <div>
                     <div class="card">
                         <div class="card-body">
