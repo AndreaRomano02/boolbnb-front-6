@@ -50,7 +50,7 @@ export default {
                     range: this.form.range,
                     beds: this.form.beds,
                     rooms: this.form.rooms,
-                    // services: this.form.services, 
+                    services: this.form.services,
                 }
             };
             this.isLoading = true;
