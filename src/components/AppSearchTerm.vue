@@ -71,7 +71,7 @@ export default {
             <!-- Aggiungi l'input text -->
             <input type="text" v-model="searchAddress" class="form-control" placeholder="Cerca una destinazione"
                 aria-describedby="button-addon2" @input="handleInput">
-            <router-link :to="{ name: 'AdvancedSearch', query: { address: searchAddress } }">
+            <router-link :to="{ name: 'AdvancedSearch', query: { address: searchAddress, range: rangeValue } }">
                 <button class="d-flex align-items-center" type="submit" id="button-addon2"><i
                         class="material-icons fs-5 px-4">search</i></button>
             </router-link>
@@ -91,6 +91,7 @@ export default {
                 @input="$emit('distance-change', rangeValue)">
             <span class="ms-2 fs-5">{{ rangeValue }} Km</span>
         </div>
+
     </form>
 </template>
 
@@ -113,6 +114,7 @@ export default {
     }
 
     button {
+        height: 40px;
         background-color: $white;
         border-top-right-radius: 30px;
         border-bottom-right-radius: 30px;
@@ -176,5 +178,9 @@ li {
 
 .dropdown-menu {
     border-radius: 10px;
+}
+
+a {
+    text-decoration: none;
 }
 </style>

@@ -1,15 +1,14 @@
 <script>
 import axios from 'axios';
 import { endpoint } from '../data';
-import AppLoader from '../components/AppLoader.vue';
-import ApartmentList from '../components/apartments/ApartmentList.vue';
+import AppLoader from '../components/AppLoader.vue'
 import { store } from "../data/store";
 import ApartmentCard from '../components/apartments/ApartmentCard.vue';
 import AppHeader from '../components/AppHeader.vue';
 import AppHero from '../components/AppHero.vue';
 export default {
     name: 'HomePage',
-    components: { AppHeader, AppHero, ApartmentList, AppLoader, ApartmentCard },
+    components: { AppHeader, AppHero, AppLoader, ApartmentCard },
     data() {
         return {
             endpoint,

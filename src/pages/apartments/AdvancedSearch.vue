@@ -5,6 +5,7 @@ import ApartmentList from '../../components/apartments/ApartmentList.vue';
 import { store } from "../../data/store";
 import { endpoint } from "../../data";
 
+
 const servicesEndpoint = "http://127.0.0.1:8000/api/apartments/services";
 
 const formField = {
@@ -70,7 +71,7 @@ export default {
                 this.store.services = res.data;
             }).catch((err) => { console.error(err) })
                 .then(() => {
-                    this.isLoading = false;
+                    this.isLoading = true;
                 })
         },
 
@@ -97,7 +98,14 @@ export default {
     },
     created() {
         this.fetchServices();
-    }
+        // Leggi il valore dell'indirizzo dalla query dei parametri di Vue Router
+        if (this.$route.query.address || this.$route.query.range) {
+            this.form.city = this.$route.query.address;
+            this.form.range = this.$route.query.range
+        }
+        // Esegui la ricerca iniziale
+        this.filteredApartments();
+    },
 };
 </script>
 
@@ -122,6 +130,7 @@ export default {
                     <div class="form-group px-5">
                         <label for="range" class="fs-5 me-2 mb-1 d-block">Distanza</label>
                         <input type="range" id="range" name="range" v-model="form.range">
+                        <span class="ms-2 fs-5">{{ form.range }} Km</span>
                         <div>
                             <small v-if="errors.range" class="text-danger feedback-address">{{ errors.range }}</small>
                         </div>
