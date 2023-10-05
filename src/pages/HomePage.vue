@@ -70,8 +70,18 @@ export default {
     <main>
         <AppHeader :is-home-page="isHomePage" />
         <AppHero @address-change="onAddressChange" @form-submit="onFormSubmit" @distance-change="onDistanceChange" />
+        <div class="container-fluid d-flex justify-content-between px-5 pt-5">
+
+            <h1 class="fw-bold ms-4">Lasciati ispirare..</h1>
+
+            <router-link :to="{ name: 'AdvancedSearch' }" class="router-link d-flex align-items-center me-5">
+                <i class="material-icons fs-2 me-2">tune</i>
+                <span>Filtri</span>
+            </router-link>
+
+        </div>
         <AppLoader v-if="isLoading" />
-        <div v-else class="pt-4">
+        <div v-else>
             <div v-if="!hasFiltered || !apartments.length">
                 <h1 v-if="hasFiltered && !apartments.length" class="text-center text-danger border-bottom pb-3">Non ci sono
                     appartamenti con
@@ -86,6 +96,18 @@ export default {
     </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use '../scss/vars' as *;
+
+.router-link {
+    text-decoration: none;
+    color: $black;
+    transition: color 0.150s;
+
+    &:hover {
+        color: $orange;
+    }
+}
+</style>
 
   
