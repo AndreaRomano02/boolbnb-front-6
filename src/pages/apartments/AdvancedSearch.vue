@@ -154,26 +154,28 @@ export default {
                 <div class="row me-3 mt-3">
 
                     <div class="col-12">
-                        <div class="checkbox-group d-flex flex-wrap">
+                        <div class="checkbox-group d-flex flex-wrap justify-content-center">
 
                             <div v-for="(service, index) in store.services" :key="service.id"
-                                class="form-check form-checkbox">
+                                class="form-check form-checkbox d-flex align-items-center mb-3">
 
                                 <input v-model="form.services" class="form-check-input ms-1" type="checkbox"
                                     :id="'service-' + service.id" :value="service.id" name="services[]">
-                                <span>
-                                    <i class="material-icons">{{ service.icon }}</i>
-                                </span>
-
                                 <label class="form-check-label text-center" :for="'service-' + service.id">
                                     {{ service.label }}
+                                    <span>
+                                        <i class="material-icons">{{ service.icon }}</i>
+                                    </span>
                                 </label>
+
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <button class="submit btn btn-primary text-center">Vai</button>
+                <div class="d-flex justify-content-center">
+                    <button class="submit btn btn-primary">Vai</button>
+                </div>
             </form>
 
         </div>
@@ -182,24 +184,98 @@ export default {
 </template>
   
 <style lang="scss" scoped>
-input {
-    margin-right: 5px;
+/* Stile per il container del form */
+#filter-form {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-label {
-    font-size: 10px;
+/* Stile per il titolo del form */
+#filter-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
-.form-checkbox {
-    width: 5%;
+/* Stile per il form */
+#filter-form form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile per le etichette dei campi */
+.form-group label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Stile per gli input e gli input range */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="range"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+/* Stile per il range input */
+#range {
+    width: 80%;
+    margin-right: 10px;
+}
+
+/* Cambia il colore del bordo quando l'input è in focus */
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="range"]:focus {
+    border-color: #007bff;
+}
+
+/* Stile per i checkbox */
+.form-check {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
 }
 
 .form-check-label {
-    display: block;
+    font-size: 16px;
+    margin-left: 10px;
+    color: #333;
 }
 
-.col-md-6 {
-    flex-basis: 50%;
+/* Stile per il pulsante "Vai" */
+.submit {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Cambia il colore del pulsante al passaggio del mouse */
+.submit:hover {
+    background-color: #0056b3;
+}
+
+/* Stile per i messaggi di errore */
+.text-danger {
+    color: #ff0000;
+}
+
+.checkbox-group label {
+    cursor: pointer;
 }
 </style>
   
