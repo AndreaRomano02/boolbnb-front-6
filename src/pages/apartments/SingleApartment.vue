@@ -75,8 +75,8 @@ export default {
                     <span>{{ apartment.address }}</span>
                 </div>
 
-                <div class="d-flex">
-                    <a href="#" class="d-flex text-decoration-none text-dark me-3" @click="copyUrl()">
+                <div class="d-flex flex-column flex-sm-row justify-content-end align-items-end w-50">
+                    <a href="#" class="d-flex text-decoration-none text-dark me-md-3 mb-2 mb-md-0" @click="copyUrl()">
                         <p>Condividi</p>
                         <i class="material-icons">ios_share</i>
                     </a>
@@ -87,41 +87,42 @@ export default {
                     </a>
                 </div>
 
+
             </div>
 
             <div>
                 <div class="row">
-                    <div class="col-md-6 my-img-style-1">
+                    <div class="col-md-12 col-lg-6">
                         <img v-if="apartment.images.length"
                             :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                            class="img-fluid object-fit-cover" style="height: 436px;" />
+                            class="first-img img-fluid object-fit-cover" />
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="row my-img-style-2">
+                    <div class="col-md-6 d-none d-lg-block">
+                        <div class="row g-2">
 
-                            <div class="col-sm-auto col-md-6">
+                            <div class="col-md-6">
                                 <img v-if="apartment.images.length"
                                     :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
                                     class="img-fluid object-fit-cover" />
                             </div>
 
-                            <div class="col-sm-auto col-md-6">
+                            <div class="col-md-6">
                                 <img v-if="apartment.images.length"
                                     :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                    class="img-fluid rounded-right object-fit-cover" />
+                                    class="third-img img-fluid rounded-right object-fit-cover" />
                             </div>
 
-                            <div class="col-sm-auto col-md-6">
+                            <div class="col-md-6">
                                 <img v-if="apartment.images.length"
                                     :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
                                     class="img-fluid object-fit-cover" />
                             </div>
 
-                            <div class="col-sm-auto col-md-6">
+                            <div class="col-md-6">
                                 <img v-if="apartment.images.length"
                                     :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                    class="img-fluid object-fit-cover" />
+                                    class="fifth-img img-fluid object-fit-cover" />
                             </div>
                         </div>
                     </div>
@@ -142,7 +143,6 @@ export default {
 
                     <hr>
 
-                    <!-- <h3 class="pb-3 text-decoration-underline">Dettagli</h3> -->
                     <div class="d-flex align-items-center">
                         <div class="text-center">
                             <i class="material-icons">
@@ -236,23 +236,30 @@ export default {
 @use "../../scss/vars" as *;
 @use "../../scss/fonts";
 
-.col-md-6 {
+.card {
+    background-color: rgba($bone, 0.5) !important;
+    border-radius: 40px;
+}
 
+.first-img {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
 
-    img {
-        width: 100%;
-        border-radius: 7px;
-        transition: all 0.2s;
+.third-img {
+    border-top-right-radius: 10px;
+}
 
-        &:hover {
-            filter: brightness(70%);
-        }
+.fifth-img {
+    border-bottom-right-radius: 10px;
+}
+
+img {
+    transition: all 0.3s;
+
+    &:hover {
+        filter: brightness(75%);
     }
-
-    ul {
-        list-style-type: none;
-    }
-
 }
 
 .effect.effect-1 {
@@ -290,25 +297,11 @@ export default {
     }
 }
 
-
-.my-img-style-1 img {
-    height: 436px;
-}
-
-.my-img-style-2 img {
-    height: 220px;
-    width: 315px;
-    padding: 3px;
-}
-
-.my-img-style-3 img {
-    height: 90px;
-    width: 90px;
-}
-
-.card {
-    background-color: rgba($bone, 0.5) !important;
-    border-radius: 40px;
+@media (max-width: 992px) {
+    .first-img {
+        border-top-left-radius: initial;
+        border-bottom-left-radius: initial;
+    }
 }
 </style>
 
