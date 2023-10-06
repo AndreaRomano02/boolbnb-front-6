@@ -140,8 +140,10 @@ export default {
             this.form.city = this.$route.query.address;
             this.form.range = this.$route.query.range
         }
-        // Esegui la ricerca iniziale
-        this.filteredApartments();
+        // Esegui la ricerca iniziale solo se il campo "city" è compilato
+        if (this.form.city) {
+            this.filteredApartments();
+        }
     },
 };
 </script>
