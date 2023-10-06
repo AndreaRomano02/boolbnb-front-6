@@ -183,4 +183,8 @@ li {
 a {
     text-decoration: none;
 }
+
+.dropdown-item:hover {
+    cursor: pointer;
+}
 </style>
