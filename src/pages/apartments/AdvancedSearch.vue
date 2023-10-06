@@ -66,13 +66,10 @@ export default {
         },
 
         fetchServices() {
-            this.isLoading = true;
+
             axios.get(servicesEndpoint).then((res) => {
                 this.store.services = res.data;
             }).catch((err) => { console.error(err) })
-                .then(() => {
-                    this.isLoading = true;
-                })
         },
 
         validateAdvancedSearch() {
