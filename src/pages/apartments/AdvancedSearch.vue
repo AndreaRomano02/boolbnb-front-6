@@ -26,8 +26,9 @@ export default {
             store,
             form: { ...formField },
             apartments: [],
-            errors: {},
+            errors: [],
             isLoading: false,
+            suggestions: [],
         };
     },
     computed: {
@@ -91,7 +92,37 @@ export default {
             if (isNaN(this.form.rooms) || this.form.rooms < 0) {
                 this.errors.rooms = "Il Numero di Stanze è insufficiente.";
             }
-        }
+        },
+        async getTomTomSuggestions(query) {
+            // Esegui una chiamata API a TomTom utilizzando la tua API Key
+            const apiKey = 'PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+            const apiUrl = `https://api.tomtom.com/search/2/search/${encodeURIComponent(query)}.json?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                // Estrai i suggerimenti dalla risposta API e assegna a `suggestions`
+                this.suggestions = data.results.map(result => result.address.freeformAddress);
+                console.log(this.suggestions)
+            } catch (error) {
+                console.error('Errore nella chiamata API di TomTom:', error);
+            }
+
+        },
+        async handleAddressInput() {
+            if (this.form.city) {
+                this.suggestions = await this.getTomTomSuggestions(this.form.city);
+            } else {
+                this.suggestions = [];
+            }
+        },
+        // Gestisci la selezione di un suggerimento
+        handleSuggestionSelected(suggestion) {
+            this.form.city = suggestion;
+            this.suggestions = []; // Pulisci i suggerimenti dopo la selezione
+            this.$emit('address-change', suggestion);
+        },
     },
     created() {
         this.fetchServices();
@@ -100,8 +131,10 @@ export default {
             this.form.city = this.$route.query.address;
             this.form.range = this.$route.query.range
         }
-        // Esegui la ricerca iniziale
-        this.filteredApartments();
+        // Esegui la ricerca iniziale solo se il campo "city" è compilato
+        if (this.form.city) {
+            this.filteredApartments();
+        }
     },
 };
 </script>
@@ -117,20 +150,31 @@ export default {
                 <div class="d-flex align-items-center justify-content-center">
 
                     <div class="form-group px-5">
-                        <label for="city" class="fs-5 me-2 mb-1 d-block">Città</label>
-                        <input type="text" id="city" name="city" v-model="form.city">
+                        <label for="city" class="fs-5 me-2 mb-1 d-block">Città o indirizzo</label>
+                        <input type="text" id="city" name="city" v-model="form.city" @input="handleAddressInput">
+                        <div v-if="suggestions.length">
+                            <ul class="dropdown-menu" aria-labelledby="form.city" style="display: block;">
+                                <li v-for="(suggestion, index) in suggestions.slice(0, 4)" :key="suggestion"
+                                    @click="handleSuggestionSelected(suggestion)" class="dropdown-item">
+                                    {{ suggestion }}
+                                </li>
+                            </ul>
+                        </div>
                         <div>
                             <small v-if="errors.city" class="text-danger feedback-address">{{ errors.city }}</small>
                         </div>
                     </div>
 
                     <div class="form-group px-5">
-                        <label for="range" class="fs-5 me-2 mb-1 d-block">Distanza</label>
+                        <label for="range" class="fs-5 me-2 mb-1 d-block">Raggio <span class="fs-5">({{
+                            form.range
+                        }}
+                                Km)</span></label>
                         <input type="range" id="range" name="range" v-model="form.range">
-                        <span class="ms-2 fs-5">{{ form.range }} Km</span>
                         <div>
                             <small v-if="errors.range" class="text-danger feedback-address">{{ errors.range }}</small>
                         </div>
+
                     </div>
 
                     <div class="form-group px-5">
@@ -154,26 +198,28 @@ export default {
                 <div class="row me-3 mt-3">
 
                     <div class="col-12">
-                        <div class="checkbox-group d-flex flex-wrap">
+                        <div class="checkbox-group d-flex flex-wrap justify-content-center">
 
                             <div v-for="(service, index) in store.services" :key="service.id"
-                                class="form-check form-checkbox">
+                                class="form-check form-checkbox d-flex align-items-center mb-3">
 
                                 <input v-model="form.services" class="form-check-input ms-1" type="checkbox"
                                     :id="'service-' + service.id" :value="service.id" name="services[]">
-                                <span>
-                                    <i class="material-icons">{{ service.icon }}</i>
-                                </span>
-
                                 <label class="form-check-label text-center" :for="'service-' + service.id">
                                     {{ service.label }}
+                                    <span>
+                                        <i class="material-icons">{{ service.icon }}</i>
+                                    </span>
                                 </label>
+
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <button class="submit btn btn-primary text-center">Vai</button>
+                <div class="d-flex justify-content-center">
+                    <button class="submit btn btn-primary">Vai</button>
+                </div>
             </form>
 
         </div>
@@ -182,24 +228,102 @@ export default {
 </template>
   
 <style lang="scss" scoped>
-input {
-    margin-right: 5px;
+.form-group label {
+    font-weight: bold;
 }
 
-label {
-    font-size: 10px;
+#filter-form {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.form-checkbox {
-    width: 5%;
+/* Stile per il titolo del form */
+#filter-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Stile per il form */
+#filter-form form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile per le etichette dei campi */
+.form-group label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Stile per gli input e gli input range */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="range"] {
+    width: 100%;
+    height: 40px;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+/* Stile per il range input */
+#range {
+    width: 80%;
+    margin-right: 10px;
+}
+
+/* Cambia il colore del bordo quando l'input è in focus */
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="range"]:focus {
+    border-color: #007bff;
+}
+
+/* Stile per i checkbox */
+.form-check {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
 }
 
 .form-check-label {
-    display: block;
+    font-size: 16px;
+    margin-left: 10px;
+    color: #333;
 }
 
-.col-md-6 {
-    flex-basis: 50%;
+/* Stile per il pulsante "Vai" */
+.submit {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Cambia il colore del pulsante al passaggio del mouse */
+.submit:hover {
+    background-color: #0056b3;
+}
+
+/* Stile per i messaggi di errore */
+.text-danger {
+    color: #ff0000;
+}
+
+.checkbox-group label {
+    cursor: pointer;
 }
 </style>
   
