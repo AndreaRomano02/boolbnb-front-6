@@ -66,6 +66,12 @@ export default {
                                 <span>Appartamenti</span>
                             </router-link>
                         </li>
+                        <li class="nav-item d-flex align-items-center">
+                            <router-link :to="{ name: 'AdvancedSearch' }" class="router-link d-flex align-items-center">
+                                <i class="material-icons fs-2 me-2">search</i>
+                                <span>Cerca </span>
+                            </router-link>
+                        </li>
                         <li class="nav-item d-flex align-items-center pt-1">
                             <a href="http://127.0.0.1:8000/register" class="router-link d-flex align-items-center"
                                 target="_blank">

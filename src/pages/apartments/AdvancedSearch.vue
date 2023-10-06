@@ -26,8 +26,9 @@ export default {
             store,
             form: { ...formField },
             apartments: [],
-            errors: {},
+            errors: [],
             isLoading: false,
+            suggestions: [],
         };
     },
     computed: {
@@ -91,7 +92,37 @@ export default {
             if (isNaN(this.form.rooms) || this.form.rooms < 0) {
                 this.errors.rooms = "Il Numero di Stanze è insufficiente.";
             }
-        }
+        },
+        async getTomTomSuggestions(query) {
+            // Esegui una chiamata API a TomTom utilizzando la tua API Key
+            const apiKey = 'PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+            const apiUrl = `https://api.tomtom.com/search/2/search/${encodeURIComponent(query)}.json?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                // Estrai i suggerimenti dalla risposta API e assegna a `suggestions`
+                this.suggestions = data.results.map(result => result.address.freeformAddress);
+                console.log(this.suggestions)
+            } catch (error) {
+                console.error('Errore nella chiamata API di TomTom:', error);
+            }
+
+        },
+        async handleAddressInput() {
+            if (this.form.city) {
+                this.suggestions = await this.getTomTomSuggestions(this.form.city);
+            } else {
+                this.suggestions = [];
+            }
+        },
+        // Gestisci la selezione di un suggerimento
+        handleSuggestionSelected(suggestion) {
+            this.form.city = suggestion;
+            this.suggestions = []; // Pulisci i suggerimenti dopo la selezione
+            this.$emit('address-change', suggestion);
+        },
     },
     created() {
         this.fetchServices();
@@ -117,20 +148,31 @@ export default {
                 <div class="d-flex align-items-center justify-content-center">
 
                     <div class="form-group px-5">
-                        <label for="city" class="fs-5 me-2 mb-1 d-block">Città</label>
-                        <input type="text" id="city" name="city" v-model="form.city">
+                        <label for="city" class="fs-5 me-2 mb-1 d-block">Città o indirizzo</label>
+                        <input type="text" id="city" name="city" v-model="form.city" @input="handleAddressInput">
+                        <div v-if="suggestions.length">
+                            <ul class="dropdown-menu" aria-labelledby="form.city" style="display: block;">
+                                <li v-for="(suggestion, index) in suggestions.slice(0, 4)" :key="suggestion"
+                                    @click="handleSuggestionSelected(suggestion)" class="dropdown-item">
+                                    {{ suggestion }}
+                                </li>
+                            </ul>
+                        </div>
                         <div>
                             <small v-if="errors.city" class="text-danger feedback-address">{{ errors.city }}</small>
                         </div>
                     </div>
 
                     <div class="form-group px-5">
-                        <label for="range" class="fs-5 me-2 mb-1 d-block">Distanza</label>
+                        <label for="range" class="fs-5 me-2 mb-1 d-block">Raggio <span class="fs-5">({{
+                            form.range
+                        }}
+                                Km)</span></label>
                         <input type="range" id="range" name="range" v-model="form.range">
-                        <span class="ms-2 fs-5">{{ form.range }} Km</span>
                         <div>
                             <small v-if="errors.range" class="text-danger feedback-address">{{ errors.range }}</small>
                         </div>
+
                     </div>
 
                     <div class="form-group px-5">
@@ -184,7 +226,10 @@ export default {
 </template>
   
 <style lang="scss" scoped>
-/* Stile per il container del form */
+.form-group label {
+    font-weight: bold;
+}
+
 #filter-form {
     background-color: #f2f2f2;
     padding: 20px;
@@ -219,6 +264,7 @@ export default {
 .form-group input[type="number"],
 .form-group input[type="range"] {
     width: 100%;
+    height: 40px;
     padding: 12px;
     font-size: 16px;
     border: 2px solid #ccc;
