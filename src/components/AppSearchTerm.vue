@@ -62,43 +62,51 @@ export default {
                 this.showSuggestions = false;
             }
         },
+        handleFormSubmit() {
+            if (this.searchAddress.trim() === '') {
+                alert("L'indirizzo di ricerca non può essere vuoto.");
+            } else {
+                this.$emit('form-submit');
+            }
+        },
     },
 };
 </script>
+
+
 <template>
-    <form @submit.prevent="$emit('form-submit')">
-        <div class="searchbar input-group ps-5">
+    <form @submit.prevent="handleFormSubmit">
+        <div class="searchbar input-group px-2">
             <!-- Aggiungi l'input text -->
             <input type="text" v-model="searchAddress" class="form-control" placeholder="Cerca una destinazione"
-                aria-describedby="button-addon2" @input="handleInput">
-            <router-link :to="{ name: 'AdvancedSearch', query: { address: searchAddress, range: rangeValue } }">
-                <button class="d-flex align-items-center" type="submit" id="button-addon2"><i
-                        class="material-icons fs-5 px-4">search</i></button>
+                aria-describedby="button-addon2" @input="handleInput" />
+            <router-link v-if="searchAddress.trim() !== ''"
+                :to="{ name: 'AdvancedSearch', query: { address: searchAddress, range: rangeValue } }">
+                <button class="d-flex align-items-center" type="submit" id="button-addon2">
+                    <i class="material-icons fs-5 px-4">search</i>
+                </button>
             </router-link>
+            <button v-else type="submit" class="d-flex align-items-center" id="button-addon2">
+                <i class="material-icons fs-5 px-4">search</i>
+            </button>
         </div>
         <!-- Dropdown per i suggerimenti (con un massimo di 4 risultati) -->
-        <div v-if="suggestions.length > 0" class="position-relative">
+        <div v-if="suggestions.length > 0" class="position-relative me-5">
             <ul class="dropdown-menu" aria-labelledby="searchAddress" style="display: block;">
                 <li v-for="(suggestion, index) in suggestions.slice(0, 4)" :key="suggestion"
-                    @click="handleSuggestionSelected(suggestion)" class="dropdown-item">
-                    {{ suggestion }}
-                </li>
+                    @click="handleSuggestionSelected(suggestion)" class="dropdown-item">{{ suggestion }}</li>
             </ul>
         </div>
-        <div v-if="searchAddress.length" class="d-flex align-items-center mt-3">
-            <label for="distance-range" class="ms-5 px-3">Distanza</label>
+        <div v-if="searchAddress.length" id="range-container" class="d-flex align-items-center shadow-lg mt-3">
+            <label for="distance-range">Distanza</label>
             <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="100" v-model="rangeValue"
-                @input="$emit('distance-change', rangeValue)">
-            <span class="ms-2 fs-5">{{ rangeValue }} Km</span>
+                @input="$emit('distance-change', rangeValue)" />
+            <span class="ms-2 fs-6">{{ rangeValue }} Km</span>
         </div>
-
+        <div style="height: 30px;"></div>
     </form>
 </template>
-
-
-
-
-
+  
   
 
 
@@ -107,10 +115,12 @@ export default {
 @use '../scss/fonts' as *;
 
 .searchbar {
-    width: 45%;
+    width: 100%;
+    z-index: 1;
 
     input {
         border-radius: 30px;
+        position: relative;
     }
 
     button {
@@ -136,33 +146,67 @@ export default {
 
 }
 
-label {
-    font-size: 15px;
-    padding: 10px 20px;
-    margin-right: -30px;
-    background: linear-gradient(to bottom, rgba(#4c4c4c, 0.95), rgba(#000, 0.95));
+#range-container {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 510px;
     border-radius: 20px;
+    background: linear-gradient(to bottom, rgb(0, 0, 19), rgb(0, 0, 25));
+    padding: 5px 10px;
     color: $white;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 700;
+    text-align: center;
+    z-index: 1;
+
+    label {
+        font-size: 15px;
+        padding: 5px 0;
+        margin-right: -30px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 700;
+    }
+
+    #distance-range {
+        width: 100%;
+        border: none;
+        background: transparent;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 6px;
+        background: $bone;
+        border-radius: 3px;
+    }
+
+    #distance-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background: $blue;
+        border: 1px solid #fff;
+        position: relative;
+        z-index: 3;
+        cursor: pointer;
+    }
+
+    span {
+        font-size: 15px;
+        width: 100px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 500;
+    }
 }
 
-#distance-range {
-    width: 32%;
-    border: 1px solid rgba($black, 0.3);
-}
 
-span {
-    font-family: 'Open sans', sans-serif;
-    font-weight: 500;
-    color: $white;
-}
 
-input:focus {
+input[type="text"]:focus {
     outline-style: none;
     box-shadow: none;
     border-right-color: rgba($black, 0.8);
-    box-shadow: -5px 25px 25px rgba(0, 0, 0, 0.7);
+    box-shadow: -5px 10px 10px rgba(0, 0, 0, 0.7);
 }
 
 
@@ -174,10 +218,20 @@ ul {
 
 li {
     list-style-type: none;
+
+    &:hover {
+        background-color: rgba($black, 0.25);
+    }
 }
 
 .dropdown-menu {
-    border-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    position: absolute;
+    left: 20px;
+    width: 92%;
 }
 
 a {
