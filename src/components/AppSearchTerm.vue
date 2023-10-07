@@ -97,11 +97,11 @@ export default {
                     @click="handleSuggestionSelected(suggestion)" class="dropdown-item">{{ suggestion }}</li>
             </ul>
         </div>
-        <div v-if="searchAddress.length" class="d-flex align-items-center position-fixed mt-3">
-            <label for="distance-range" class="ms-5 px-3">Distanza</label>
+        <div v-if="searchAddress.length" id="range-container" class="d-flex align-items-center shadow-lg mt-3">
+            <label for="distance-range">Distanza</label>
             <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="100" v-model="rangeValue"
                 @input="$emit('distance-change', rangeValue)" />
-            <span class="ms-2 fs-5">{{ rangeValue }} Km</span>
+            <span class="ms-2 fs-6">{{ rangeValue }} Km</span>
         </div>
         <div style="height: 30px;"></div>
     </form>
@@ -116,6 +116,7 @@ export default {
 
 .searchbar {
     width: 100%;
+    z-index: 1;
 
     input {
         border-radius: 30px;
@@ -145,29 +146,63 @@ export default {
 
 }
 
-label {
-    font-size: 15px;
-    padding: 10px 20px;
-    margin-right: -30px;
-    background: linear-gradient(to bottom, rgba(#4c4c4c, 0.95), rgba(#000, 0.95));
+#range-container {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 510px;
     border-radius: 20px;
+    background: linear-gradient(to bottom, rgb(0, 0, 19), rgb(0, 0, 25));
+    padding: 5px 10px;
     color: $white;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 700;
+    text-align: center;
+    z-index: 1;
+
+    label {
+        font-size: 15px;
+        padding: 5px 0;
+        margin-right: -30px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 700;
+    }
+
+    #distance-range {
+        width: 100%;
+        border: none;
+        background: transparent;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 6px;
+        background: $bone;
+        border-radius: 3px;
+    }
+
+    #distance-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background: $blue;
+        border: 1px solid #fff;
+        position: relative;
+        z-index: 3;
+        cursor: pointer;
+    }
+
+    span {
+        font-size: 15px;
+        width: 100px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 500;
+    }
 }
 
-#distance-range {
-    width: 32%;
-    border: 1px solid rgba($black, 0.3);
-}
 
-span {
-    font-family: 'Open sans', sans-serif;
-    font-weight: 500;
-    color: $white;
-}
 
-input:focus {
+input[type="text"]:focus {
     outline-style: none;
     box-shadow: none;
     border-right-color: rgba($black, 0.8);
@@ -183,6 +218,10 @@ ul {
 
 li {
     list-style-type: none;
+
+    &:hover {
+        background-color: rgba($black, 0.25);
+    }
 }
 
 .dropdown-menu {

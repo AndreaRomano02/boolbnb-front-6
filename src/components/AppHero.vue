@@ -29,9 +29,6 @@ export default {
 <template>
     <div id="app-hero" ref="hero">
         <div class="hero-overlay d-flex align-items-center justify-content-center">
-            <!-- <div>
-                <h1 class="ps-5 display-1">il tuo viaggio, la tua storia.</h1>
-            </div> -->
             <div class="search-input">
                 <AppSearchTerm @address-change="onAddressChange" @form-submit="$emit('form-submit')"
                     @distance-change="onDistanceChange" />
@@ -60,18 +57,8 @@ export default {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-
-    // h1 {
-    //     font-size: 50px;
-    //     color: $white;
-    //     text-transform: uppercase;
-    //     font-family: 'Catamaran', sans-serif;
-    //     font-weight: 900;
-    //     line-height: 0.8;
-    //     user-select: none;
-    //     filter: brightness(75%);
-    // }
 }
+
 
 .search-input {
     width: 50vw;
