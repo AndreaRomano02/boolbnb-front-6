@@ -65,9 +65,11 @@ export default {
     },
 };
 </script>
+
+
 <template>
     <form @submit.prevent="$emit('form-submit')">
-        <div class="searchbar input-group ps-5">
+        <div class="searchbar input-group px-2">
             <!-- Aggiungi l'input text -->
             <input type="text" v-model="searchAddress" class="form-control" placeholder="Cerca una destinazione"
                 aria-describedby="button-addon2" @input="handleInput">
@@ -77,7 +79,7 @@ export default {
             </router-link>
         </div>
         <!-- Dropdown per i suggerimenti (con un massimo di 4 risultati) -->
-        <div v-if="suggestions.length > 0" class="position-relative">
+        <div v-if="suggestions.length > 0" class="position-relative me-5">
             <ul class="dropdown-menu" aria-labelledby="searchAddress" style="display: block;">
                 <li v-for="(suggestion, index) in suggestions.slice(0, 4)" :key="suggestion"
                     @click="handleSuggestionSelected(suggestion)" class="dropdown-item">
@@ -85,21 +87,15 @@ export default {
                 </li>
             </ul>
         </div>
-        <div v-if="searchAddress.length" class="d-flex align-items-center mt-3">
+        <div v-if="searchAddress.length" class="d-flex align-items-center position-fixed mt-3">
             <label for="distance-range" class="ms-5 px-3">Distanza</label>
             <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="100" v-model="rangeValue"
                 @input="$emit('distance-change', rangeValue)">
             <span class="ms-2 fs-5">{{ rangeValue }} Km</span>
         </div>
-
+        <div style="height: 30px;"></div>
     </form>
 </template>
-
-
-
-
-
-  
 
 
 <style lang="scss" scoped>
@@ -107,10 +103,11 @@ export default {
 @use '../scss/fonts' as *;
 
 .searchbar {
-    width: 45%;
+    width: 100%;
 
     input {
         border-radius: 30px;
+        position: relative;
     }
 
     button {
@@ -162,7 +159,7 @@ input:focus {
     outline-style: none;
     box-shadow: none;
     border-right-color: rgba($black, 0.8);
-    box-shadow: -5px 25px 25px rgba(0, 0, 0, 0.7);
+    box-shadow: -5px 10px 10px rgba(0, 0, 0, 0.7);
 }
 
 
@@ -177,7 +174,13 @@ li {
 }
 
 .dropdown-menu {
-    border-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    position: absolute;
+    left: 20px;
+    width: 92%;
 }
 
 a {

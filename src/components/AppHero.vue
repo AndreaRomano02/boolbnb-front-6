@@ -28,12 +28,14 @@ export default {
 
 <template>
     <div id="app-hero" ref="hero">
-        <div class="hero-overlay d-flex flex-column justify-content-center justify-content-start">
-            <div>
-                <h1 class="ps-5 display-1">il tuo<br>viaggio,<br>la tua<br>storia.</h1>
+        <div class="hero-overlay d-flex align-items-center justify-content-center">
+            <!-- <div>
+                <h1 class="ps-5 display-1">il tuo viaggio, la tua storia.</h1>
+            </div> -->
+            <div class="search-input">
+                <AppSearchTerm @address-change="onAddressChange" @form-submit="$emit('form-submit')"
+                    @distance-change="onDistanceChange" />
             </div>
-            <AppSearchTerm @address-change="onAddressChange" @form-submit="$emit('form-submit')"
-                @distance-change="onDistanceChange" />
         </div>
     </div>
 </template>
@@ -46,7 +48,7 @@ export default {
 #app-hero {
     height: 100vh;
     background-image: url('/hero.jpg');
-    background-position: bottom;
+    background-position: top;
     background-size: cover;
     position: relative;
 }
@@ -57,17 +59,33 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
 
-    h1 {
-        font-size: 120px;
-        color: $white;
-        text-transform: uppercase;
-        font-family: 'Catamaran', sans-serif;
-        font-weight: 900;
-        line-height: 0.8;
-        user-select: none;
-        filter: brightness(75%);
+    // h1 {
+    //     font-size: 50px;
+    //     color: $white;
+    //     text-transform: uppercase;
+    //     font-family: 'Catamaran', sans-serif;
+    //     font-weight: 900;
+    //     line-height: 0.8;
+    //     user-select: none;
+    //     filter: brightness(75%);
+    // }
+}
+
+.search-input {
+    width: 50vw;
+}
+
+@media (max-width: 992px) {
+    .search-input {
+        width: 75vw;
+    }
+}
+
+@media (max-width: 576px) {
+    .search-input {
+        width: 100vw;
     }
 }
 </style>
