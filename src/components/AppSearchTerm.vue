@@ -62,40 +62,52 @@ export default {
                 this.showSuggestions = false;
             }
         },
+        handleFormSubmit() {
+            if (this.searchAddress.trim() === '') {
+                alert("L'indirizzo di ricerca non può essere vuoto.");
+            } else {
+                this.$emit('form-submit');
+            }
+        },
     },
 };
 </script>
 
 
 <template>
-    <form @submit.prevent="$emit('form-submit')">
+    <form @submit.prevent="handleFormSubmit">
         <div class="searchbar input-group px-2">
             <!-- Aggiungi l'input text -->
             <input type="text" v-model="searchAddress" class="form-control" placeholder="Cerca una destinazione"
-                aria-describedby="button-addon2" @input="handleInput">
-            <router-link :to="{ name: 'AdvancedSearch', query: { address: searchAddress, range: rangeValue } }">
-                <button class="d-flex align-items-center" type="submit" id="button-addon2"><i
-                        class="material-icons fs-5 px-4">search</i></button>
+                aria-describedby="button-addon2" @input="handleInput" />
+            <router-link v-if="searchAddress.trim() !== ''"
+                :to="{ name: 'AdvancedSearch', query: { address: searchAddress, range: rangeValue } }">
+                <button class="d-flex align-items-center" type="submit" id="button-addon2">
+                    <i class="material-icons fs-5 px-4">search</i>
+                </button>
             </router-link>
+            <button v-else type="submit" class="d-flex align-items-center" id="button-addon2">
+                <i class="material-icons fs-5 px-4">search</i>
+            </button>
         </div>
         <!-- Dropdown per i suggerimenti (con un massimo di 4 risultati) -->
         <div v-if="suggestions.length > 0" class="position-relative me-5">
             <ul class="dropdown-menu" aria-labelledby="searchAddress" style="display: block;">
                 <li v-for="(suggestion, index) in suggestions.slice(0, 4)" :key="suggestion"
-                    @click="handleSuggestionSelected(suggestion)" class="dropdown-item">
-                    {{ suggestion }}
-                </li>
+                    @click="handleSuggestionSelected(suggestion)" class="dropdown-item">{{ suggestion }}</li>
             </ul>
         </div>
         <div v-if="searchAddress.length" class="d-flex align-items-center position-fixed mt-3">
             <label for="distance-range" class="ms-5 px-3">Distanza</label>
             <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="100" v-model="rangeValue"
-                @input="$emit('distance-change', rangeValue)">
+                @input="$emit('distance-change', rangeValue)" />
             <span class="ms-2 fs-5">{{ rangeValue }} Km</span>
         </div>
         <div style="height: 30px;"></div>
     </form>
 </template>
+  
+  
 
 
 <style lang="scss" scoped>
