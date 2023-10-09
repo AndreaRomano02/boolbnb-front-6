@@ -179,7 +179,7 @@ export default {
                             form.range
                         }}
                                 Km)</span></label>
-                        <input type="range" id="range" name="range" v-model="form.range">
+                        <input type="range" id="range" name="range" v-model="form.range" min="2" max="20">
                         <div>
                             <small v-if="errors.range" class="text-danger feedback-address">{{ errors.range }}</small>
                         </div>

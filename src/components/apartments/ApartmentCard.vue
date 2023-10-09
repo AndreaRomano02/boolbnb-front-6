@@ -23,7 +23,13 @@ export default {
             <div v-if="apartment.distance_center">
                 <p>{{ apartment.distance_center }} km dal centro</p>
             </div>
-            <p>{{ apartment.price }}€/notte</p>
+            <p>€{{ apartment.price }} / Notte</p>
+            <div class="d-flex">
+                <div v-for="(service, index) in apartment.services.slice(0, 5)" :key="index" class="d-flex">
+                    <i class="material-symbols-outlined me-1">{{ service.icon }}</i>
+                </div>
+            </div>
+            <br>
             <p class="card-description">{{ apartment.description }}</p>
         </div>
     </div>
@@ -61,7 +67,7 @@ export default {
 }
 
 .card-content {
-    padding: 10px 0;
+    padding: 10px 10px;
 }
 
 .card-title {
