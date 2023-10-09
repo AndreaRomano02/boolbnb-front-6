@@ -1,37 +1,81 @@
 <script>
 import axios from 'axios';
+const visit_endpoint = 'http://127.0.0.1:8000/api/apartments/visit';
 
 export default {
     name: "ApartmentCard",
     props: {
         apartment: Object,
     },
+    data() {
+        return {
+            ipAddress: null,
+            date: null,
+        }
+    },
+    created() {
+        this.fetchIpAddress();
+        this.fetchDate();
+    },
+    methods: {
+        fetchIpAddress() {
+            axios.get('https://api.ipify.org?format=json')
+                .then(response => {
+                    this.ipAddress = response.data.ip;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        fetchDate() {
+            const currentDate = new Date().toJSON().slice(0, 10);
+            const currentTime = new Date().toJSON().slice(11, 19);
+
+            const fullDateTime = currentDate + ' ' + currentTime;
+            this.date = fullDateTime;
+
+        },
+        visit_call() {
+            const params = {
+                apartment_id: this.apartment.id,
+                IP_address: this.ipAddress,
+                date: this.date,
+            };
+
+            axios.post(visit_endpoint, params).then(res => {
+                console.log(res.data);
+            }).catch(err => {
+                console.error(err)
+            })
+        }
+    }
 };
 </script>
 
 <template>
     <div class="apartment-card">
-        <router-link :to="{ name: 'SingleApartment', params: { id: apartment.id } }">
+        <router-link class="text-decoration-none text-dark" :to="{ name: 'SingleApartment', params: { id: apartment.id } }"
+            @click="this.visit_call">
             <div class="card-image">
                 <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${this.apartment.images[0].path}`"
                     alt="Apartment Image" />
             </div>
-        </router-link>
-        <div class="card-content">
-            <h2 class="card-title">{{ apartment.title }}</h2>
-            <p>{{ apartment.address }}</p>
-            <div v-if="apartment.distance_center">
-                <p>{{ apartment.distance_center }} km dal centro</p>
-            </div>
-            <p>€{{ apartment.price }} / Notte</p>
-            <div class="d-flex">
-                <div v-for="(service, index) in apartment.services.slice(0, 5)" :key="index" class="d-flex">
-                    <i class="material-symbols-outlined me-1">{{ service.icon }}</i>
+            <div class="card-content">
+                <h2 class="card-title">{{ apartment.title }}</h2>
+                <p>{{ apartment.address }}</p>
+                <div v-if="apartment.distance_center">
+                    <p>{{ apartment.distance_center }} km dal centro</p>
                 </div>
+                <p>€{{ apartment.price }} / Notte</p>
+                <div class="d-flex">
+                    <div v-for="(service, index) in apartment.services.slice(0, 5)" :key="index" class="d-flex">
+                        <i class="material-symbols-outlined me-1">{{ service.icon }}</i>
+                    </div>
+                </div>
+                <br>
+                <p class="card-description">{{ apartment.description }}</p>
             </div>
-            <br>
-            <p class="card-description">{{ apartment.description }}</p>
-        </div>
+        </router-link>
     </div>
 </template>
 
