@@ -1,12 +1,13 @@
 <script>
 import ApartmentCard from './ApartmentCard.vue';
 
+
 export default {
     name: "ApartmentList",
     components:
         { ApartmentCard },
     props: {
-        apartments: Array,
+        apartments: Object,
     },
     data() {
         return {
@@ -22,9 +23,10 @@ export default {
     <div v-else class="container-fluid px-5 my-5">
         <div class="wrapper px-4">
             <div class="row ">
-                <div class="col-3 mb-5" v-for="apartment in apartments" :key="apartment.id">
-                    <ApartmentCard :apartment="apartment" />
+                <div class="col-3 mb-5" v-for="apartment in apartments">
+                    <ApartmentCard :apartment="apartment" :key="apartment.id" />
                 </div>
+
             </div>
         </div>
     </div>

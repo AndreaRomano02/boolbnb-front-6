@@ -7,6 +7,8 @@ import AdvancedSearch from "../pages/apartments/AdvancedSearch.vue";
 import ApartmentForm from "../pages/apartments/ApartmentForm.vue";
 import NotFoundPage from "../pages/NotFoundPage.vue";
 
+
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
