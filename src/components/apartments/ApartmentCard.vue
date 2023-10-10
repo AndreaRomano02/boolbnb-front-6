@@ -68,11 +68,15 @@ export default {
             </div>
             <div class="card-content">
                 <h2 class="card-title">{{ apartment.title }}</h2>
-                <p>{{ apartment.address }}</p>
+                <p id="address">{{ apartment.address }}</p>
                 <div v-if="apartment.distance_center">
                     <p>{{ apartment.distance_center }} km dal centro</p>
                 </div>
-                <p>€{{ apartment.price }} / Notte</p>
+                <div class="d-flex align-items-center">
+                    <p id="price">€{{ apartment.price }} / Notte</p>
+                    <p class="mx-1">|</p>
+                    <p id="square-meters">{{ apartment.square_meters }} mq²</p>
+                </div>
                 <div class="d-flex">
                     <div v-for="(service, index) in apartment.services.slice(0, 5)" :key="index" class="d-flex">
                         <i class="material-symbols-outlined me-1">{{ service.icon }}</i>
@@ -86,6 +90,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "../../scss/vars" as *;
+
 .apartment-card {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -117,6 +123,13 @@ export default {
 
 .card-content {
     padding: 10px 10px;
+
+    #price,
+    #square-meters {
+        font-size: 14px;
+        color: rgba($black, 0.7);
+        font-weight: 500;
+    }
 }
 
 .card-title {
