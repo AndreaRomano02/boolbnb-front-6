@@ -43,7 +43,7 @@ export default {
 @use '../scss/fonts' as *;
 
 #app-hero {
-    height: 100vh;
+    height: 750px;
     background-image: url('/hero.jpg');
     background-position: top;
     background-size: cover;

@@ -116,7 +116,6 @@ export default {
 
 .searchbar {
     width: 100%;
-    z-index: 1;
 
     input {
         border-radius: 30px;
