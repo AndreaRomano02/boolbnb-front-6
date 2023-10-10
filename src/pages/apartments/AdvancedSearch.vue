@@ -38,7 +38,6 @@ export default {
     },
     methods: {
         filteredApartments() {
-
             this.validateAdvancedSearch();
 
             if (this.hasErrors) {
@@ -58,22 +57,24 @@ export default {
             this.isLoading = true;
             axios.get(endpoint, params)
                 .then((res) => {
-                    console.log(res.data)
                     this.apartments = res.data;
+
                     this.apartments = this.apartments.sort((a, b) => {
                         if (Array.isArray(a.sponsors) && a.sponsors.length > 0 && !Array.isArray(b.sponsors)) {
                             return -1;
                         } else if (!Array.isArray(a.sponsors) && Array.isArray(b.sponsors) && b.sponsors.length > 0) {
                             return 1;
-                        } else {
-                            return 0;
                         }
+
+                        return a.distance_center - b.distance_center;
                     });
-                }).catch((err) => { console.error(err) })
+                })
+                .catch((err) => { console.error(err) })
                 .then(() => {
                     this.isLoading = false;
-                })
+                });
         },
+
 
         fetchServices() {
 

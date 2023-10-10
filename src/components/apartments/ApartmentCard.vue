@@ -99,7 +99,7 @@ export default {
     transition: transform 0.2s;
     overflow: hidden;
     height: 575px;
-    background-color: rgba($bone, 0.4);
+    background-color: rgba($bone, 0.1);
 }
 
 .card-image {

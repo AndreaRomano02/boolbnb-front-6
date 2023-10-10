@@ -73,7 +73,7 @@ export default {
         <AppHeader :is-home-page="isHomePage" />
         <AppHero @address-change="onAddressChange" @form-submit="onFormSubmit" @distance-change="onDistanceChange" />
         <div id="sponsored" class="container-fluid my-5 px-5">
-            <div class="row px-2 gy-4 d-flex justify-content-between">
+            <div class="row px-2 gy-4 d-flex justify-content-start">
                 <div class="col-auto col-lg-3 col-md-6 col-sm-12" v-for="(apartment, index) in apartmentsWithSponsors"
                     :key="index">
                     <div>
