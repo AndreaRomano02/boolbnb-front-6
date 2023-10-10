@@ -26,7 +26,7 @@ export default {
 
             ScrollTrigger.create({
                 trigger: '#app-header',
-                start: '+=670px top',
+                start: '+=660vh',
                 onEnter: () => {
                     this.isScrolled = true;
                 },

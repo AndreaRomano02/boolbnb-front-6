@@ -99,7 +99,7 @@ export default {
         </div>
         <div v-if="searchAddress.length" id="range-container" class="d-flex align-items-center shadow-lg mt-3">
             <label for="distance-range">Distanza</label>
-            <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="100" v-model="rangeValue"
+            <input id="distance-range" type="range" class="mt-1 ms-5 d-block" min="0" max="20" v-model="rangeValue"
                 @input="$emit('distance-change', rangeValue)" />
             <span class="ms-2 fs-6">{{ rangeValue }} Km</span>
         </div>
@@ -116,7 +116,6 @@ export default {
 
 .searchbar {
     width: 100%;
-    z-index: 1;
 
     input {
         border-radius: 30px;
@@ -154,15 +153,17 @@ export default {
     width: 100%;
     max-width: 510px;
     border-radius: 20px;
-    background: linear-gradient(to bottom, rgb(0, 0, 19), rgb(0, 0, 25));
+    // background: linear-gradient(to bottom, rgb(0, 0, 19), rgb(0, 0, 25));
+    background-color: rgba($white, 1.0);
     padding: 5px 10px;
-    color: $white;
+    color: $black;
     text-align: center;
     z-index: 1;
 
     label {
         font-size: 15px;
         padding: 5px 0;
+        padding-left: 10px;
         margin-right: -30px;
         font-family: 'Open Sans', sans-serif;
         font-weight: 700;
@@ -195,7 +196,7 @@ export default {
     span {
         font-size: 15px;
         width: 100px;
-        font-family: 'Open Sans', sans-serif;
+        // font-family: 'Open Sans', sans-serif;
         font-weight: 500;
     }
 }

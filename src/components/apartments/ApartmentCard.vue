@@ -86,9 +86,8 @@ export default {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     overflow: hidden;
-    max-width: 330px;
+    height: 575px;
     background-color: #fff;
-    margin-bottom: -30px;
 }
 
 .card-image {
@@ -123,19 +122,5 @@ export default {
 .card-description {
     font-size: 1rem;
     margin-bottom: 8px;
-}
-
-.card-button {
-    display: inline-block;
-    background-color: #ff5a5f;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 0.2s;
-}
-
-.card-button:hover {
-    background-color: #ff454a;
 }
 </style>
