@@ -7,6 +7,13 @@ export default {
     components: { AppHeader },
     data() {
         return {
+            form: {
+                apartment_id: 0,
+                name: '',
+                surname: '',
+                email: '',
+                content: '',
+            },
             apartment: {},
             apartments: {},
             is_loading: false,
@@ -54,6 +61,21 @@ export default {
             document.body.removeChild(tempInput);
 
             alert("URL copiato negli appunti: " + url);
+        },
+        onSubmit() {
+            this.form.apartment_id = this.apartment.id
+            axios.post('http://127.0.0.1:8000/api/apartments/messagge/', this.form)
+                .then((res) => {
+                    this.form.name = '';
+                    this.form.surname = '';
+                    this.form.email = '';
+                    this.form.content = '';
+                })
+                .catch((error) => {
+
+                }).finally(() => {
+
+                });
         },
     },
 }
@@ -199,34 +221,43 @@ export default {
                 </div>
 
                 <div class="col-lg-6 pt-1">
-                    <p class="text-start fs-3 pb-1"><strong>{{ apartment.price }} €</strong> / notte</p>
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <h5 class="card-title pt-2">Contatta l'Host</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label class="my-2" for="fullName">Nome Completo</label>
-                                <input type="text" class="form-control border-dark-subtle" id="fullName"
-                                    placeholder="es. Mario Rossi">
-                            </div>
-                            <div class="form-group">
-                                <label class="my-2" for="email">Indirizzo E-mail</label>
-                                <input type="email" class="form-control border-dark-subtle" id="email"
-                                    placeholder="es. mariorossi@email.it">
-                            </div>
-                            <div class="form-group">
-                                <label class="my-2" for="message">Messaggio</label>
-                                <textarea class="form-control border-dark-subtle" id="message" rows="4"
-                                    placeholder="Inserisci il tuo messaggio"></textarea>
-                            </div>
-                        </div>
-                        <div class="p-3">
-                            <button class="effect effect-1 form-control mt-2">Invia Messaggio</button>
-                        </div>
-                    </div>
-                </div>
+                    <form @submit.prevent="onSubmit">
 
+                        <p class="text-start fs-3 pb-1"><strong>{{ apartment.price }} €</strong> / notte</p>
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h5 class="card-title pt-2">Contatta l'Host</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="my-2" for="fullName">Nome</label>
+                                    <input v-model="form.name" type="text" class="form-control border-dark-subtle"
+                                        id="fullName" placeholder="es. Mario">
+                                </div>
+                                <div class="form-group">
+                                    <label class="my-2" for="fullSurname">Cognome</label>
+                                    <input v-model="form.surname" type="text" class="form-control border-dark-subtle"
+                                        id="fullSurame" placeholder="es. Rossi">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="my-2" for="email">Indirizzo E-mail</label>
+                                    <input type="email" v-model="form.email" class="form-control border-dark-subtle"
+                                        id="email" placeholder="es. mariorossi@email.it">
+                                </div>
+                                <div class="form-group">
+                                    <label class="my-2" for="message">Messaggio</label>
+                                    <textarea v-model="form.content" class="form-control border-dark-subtle" id="message"
+                                        rows="4" placeholder="Inserisci il tuo messaggio"></textarea>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <button class="effect effect-1 form-control mt-2">Invia Messaggio</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
     </main>
