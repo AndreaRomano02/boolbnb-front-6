@@ -35,6 +35,12 @@ export default {
             this.date = fullDateTime;
 
         },
+        truncateDescription(description, maxLength) {
+            if (description && description.length > maxLength) {
+                return description.slice(0, maxLength) + '...';
+            }
+            return description;
+        },
         visit_call() {
             const params = {
                 apartment_id: this.apartment.id,
@@ -73,7 +79,7 @@ export default {
                     </div>
                 </div>
                 <br>
-                <p class="card-description">{{ apartment.description }}</p>
+                <p class="card-description">{{ truncateDescription(apartment.description, 70) }}</p>
             </div>
         </router-link>
     </div>
