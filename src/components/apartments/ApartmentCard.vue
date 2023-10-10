@@ -69,9 +69,6 @@ export default {
             <div class="card-content">
                 <h2 class="card-title">{{ apartment.title }}</h2>
                 <p id="address">{{ apartment.address }}</p>
-                <div v-if="apartment.distance_center">
-                    <p>{{ apartment.distance_center }} km dal centro</p>
-                </div>
                 <div class="d-flex align-items-center">
                     <p id="price">€{{ apartment.price }} / Notte</p>
                     <p class="mx-1">|</p>
