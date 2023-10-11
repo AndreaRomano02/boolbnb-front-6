@@ -14,25 +14,14 @@ export default {
                 email: '',
                 content: '',
             },
-            apartment: {},
-            apartments: {},
+            apartment: null,
             is_loading: false,
         };
     },
     created() {
-        this.getSingleApartment(),
-            this.getApartments();
+        this.getSingleApartment()
     },
     methods: {
-        getApartments() {
-            this.is_loading = true;
-            axios.get(`http://127.0.0.1:8000/api/apartments`).then((res) => {
-                this.apartments = res.data.slice(0, 4);
-            }).catch(err => {
-            }).then(() => {
-                this.is_loading = false;
-            });
-        },
         getSingleApartment() {
             this.is_loading = true;
             axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.id}`).then((res) => {
@@ -86,7 +75,7 @@ export default {
 <template>
     <AppHeader />
     <AppLoader v-if="is_loading" />
-    <main class="mt-5 py-1 pb-5">
+    <main v-if="apartment" class="mt-5 py-1 pb-5">
         <div class="container mt-5">
             <div class="mt-4">
                 <h3>{{ apartment.title }}</h3>
@@ -114,37 +103,32 @@ export default {
 
             <div>
                 <div class="row">
-                    <div class="col-md-12 col-lg-6">
-                        <img v-if="apartment.images.length"
-                            :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
+                    <div v-if="apartment.images.length" class="col-md-12 col-lg-6">
+                        <img :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
                             class="first-img img-fluid object-fit-cover" />
                     </div>
 
                     <div class="col-md-6 d-none d-lg-block">
                         <div class="row g-2">
 
-                            <div class="col-md-6">
-                                <img v-if="apartment.images.length"
-                                    :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                    class="img-fluid object-fit-cover" />
+                            <div v-if="apartment.images.length" class="col-md-6">
+                                <img :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
+                                    alt="Apartment Image" class="img-fluid object-fit-cover" />
                             </div>
 
-                            <div class="col-md-6">
-                                <img v-if="apartment.images.length"
-                                    :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                    class="third-img img-fluid rounded-right object-fit-cover" />
+                            <div v-if="apartment.images.length" class="col-md-6">
+                                <img :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
+                                    alt="Apartment Image" class="third-img img-fluid rounded-right object-fit-cover" />
                             </div>
 
-                            <div class="col-md-6">
-                                <img v-if="apartment.images.length"
-                                    :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                    class="img-fluid object-fit-cover" />
+                            <div v-if="apartment.images.length" class="col-md-6">
+                                <img :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
+                                    alt="Apartment Image" class="img-fluid object-fit-cover" />
                             </div>
 
-                            <div class="col-md-6">
-                                <img v-if="apartment.images.length"
-                                    :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`" alt="Apartment Image"
-                                    class="fifth-img img-fluid object-fit-cover" />
+                            <div v-if="apartment.images.length" class="col-md-6">
+                                <img :src="`http://127.0.0.1:8000/storage/${apartment.images[0].path}`"
+                                    alt="Apartment Image" class="fifth-img img-fluid object-fit-cover" />
                             </div>
                         </div>
                     </div>
