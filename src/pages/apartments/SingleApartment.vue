@@ -16,6 +16,7 @@ export default {
             },
             apartment: null,
             is_loading: false,
+            isFormSubmittedSuccessfully: false,
         };
     },
     created() {
@@ -59,6 +60,12 @@ export default {
                     this.form.surname = '';
                     this.form.email = '';
                     this.form.content = '';
+
+                    this.isFormSubmittedSuccessfully = true;
+                    console.log(this.isFormSubmittedSuccessfully)
+                    setTimeout(() => {
+                        this.isFormSubmittedSuccessfully = false;
+                    }, 700);
                 })
                 .catch((error) => {
 
@@ -236,7 +243,8 @@ export default {
                                 </div>
                             </div>
                             <div class="p-3">
-                                <button class="effect effect-1 form-control mt-2">Invia Messaggio</button>
+                                <button class="effect effect-1 form-control mt-2"
+                                    :class="{ success: this.isFormSubmittedSuccessfully }">Invia Messaggio</button>
                             </div>
                         </div>
 
@@ -309,6 +317,11 @@ img {
             opacity: 1;
             text-indent: 0px;
         }
+    }
+
+    &.success {
+        background-color: rgb(0, 125, 0);
+        transition: background-color 0.4s;
     }
 }
 
