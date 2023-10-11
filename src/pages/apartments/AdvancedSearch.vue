@@ -151,83 +151,119 @@ export default {
 <template>
     <AppLoader v-if="isLoading" />
     <AppHeader :is-home-page="isHomePage" />
-    <div class="pt-5 mt-5">
+    <div class="pt-5 mt-3">
         <div class="container-fluid" id="filter-form">
 
             <form @submit.prevent="filteredApartments()">
 
-                <div class="d-flex align-items-center justify-content-center">
-
-                    <div class="form-group px-5">
-                        <label for="city" class="fs-5 me-2 mb-1 d-block">Città o indirizzo</label>
-                        <input type="text" id="city" name="city" v-model="form.city" @input="handleAddressInput">
-                        <div v-if="suggestions.length">
-                            <ul class="dropdown-menu" aria-labelledby="form.city" style="display: block;">
-                                <li v-for="(suggestion, index) in suggestions.slice(0, 4)" :key="suggestion"
-                                    @click="handleSuggestionSelected(suggestion)" class="dropdown-item">
-                                    {{ suggestion }}
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <small v-if="errors.city" class="text-danger feedback-address">{{ errors.city }}</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group px-5">
-                        <label for="range" class="fs-5 me-2 mb-1 d-block">Raggio <span class="fs-5">({{
-                            form.range
-                        }}
-                                Km)</span></label>
-                        <input type="range" id="range" name="range" v-model="form.range" min="2" max="20">
-                        <div>
-                            <small v-if="errors.range" class="text-danger feedback-address">{{ errors.range }}</small>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group px-5">
-                        <label for="beds" class="fs-5 me-2 mb-1 d-block">Numero Posti Letto</label>
-                        <input type="number" id="beds" name="beds" v-model="form.beds">
-                        <div>
-                            <small v-if="errors.beds" class="text-danger feedback-address">{{ errors.beds }}</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group px-5">
-                        <label for="rooms" class="fs-5 me-2 mb-1 d-block">Numero Stanze</label>
-                        <input type="number" id="rooms" name="rooms" v-model="form.rooms">
-                        <div>
-                            <small v-if="errors.rooms" class="text-danger feedback-address">{{ errors.rooms }}</small>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row me-3 mt-3">
-
-                    <div class="col-12">
-                        <div class="checkbox-group d-flex flex-wrap justify-content-center">
-
-                            <div v-for="(service, index) in store.services" :key="service.id"
-                                class="form-check form-checkbox d-flex align-items-center mb-3">
-
-                                <input v-model="form.services" class="form-check-input ms-1" type="checkbox"
-                                    :id="'service-' + service.id" :value="service.id" name="services[]">
-                                <label class="form-check-label text-center" :for="'service-' + service.id">
-                                    {{ service.label }}
-                                    <span>
-                                        <i class="material-icons">{{ service.icon }}</i>
-                                    </span>
-                                </label>
-
+                <div class="row justify-content-center px-3">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="form-group px-3">
+                            <label for="city" class="fs-5 me-2 mb-1 d-block">Città o indirizzo</label>
+                            <input type="text" id="city" name="city" v-model="form.city" @input="handleAddressInput">
+                            <div v-if="suggestions.length">
+                                <ul class="dropdown-menu" aria-labelledby="form.city" style="display: block;">
+                                    <li v-for="(suggestion, index) in suggestions.slice(0, 4)" :key="suggestion"
+                                        @click="handleSuggestionSelected(suggestion)" class="dropdown-item">{{ suggestion }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <small v-if="errors.city" class="text-danger">{{ errors.city }}</small>
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="form-group px-3">
+                            <label for="range" class="fs-5 me-2 mb-1 d-block">Raggio <span class="fs-5">({{ form.range }}
+                                    Km)</span></label>
+                            <input type="range" id="range" name="range" v-model="form.range" min="0" max="20">
+                            <div>
+                                <small v-if="errors.range" class="text-danger">{{ errors.range }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="form-group px-3">
+                            <label for="beds" class="fs-5 me-2 mb-1 d-block">Posti Letto</label>
+                            <input type="number" id="beds" name="beds" v-model="form.beds">
+                            <div>
+                                <small v-if="errors.beds" class="text-danger">{{ errors.beds }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="form-group px-3">
+                            <label for="rooms" class="fs-5 me-2 mb-1 d-block">Numero Stanze</label>
+                            <input type="number" id="rooms" name="rooms" v-model="form.rooms">
+                            <div>
+                                <small v-if="errors.rooms" class="text-danger">{{ errors.rooms }}</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <button class="submit btn btn-primary">Vai</button>
+
+
+
+                <div class="row mt-2 px-2 mx-auto ps-5">
+
+                    <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="checkbox-group d-flex flex-column justify-content-center">
+                            <div v-for="(service, index) in store.services.slice(0, 5)" :key="service.id"
+                                class="form-check form-checkbox d-flex align-items-center mb-0">
+                                <input v-model="form.services" class="form-check-input border border-dark ms-1"
+                                    type="checkbox" :id="'service-' + service.id" :value="service.id" name="services[]">
+                                <label class="form-check-label d-flex align-items-center" :for="'service-' + service.id">
+                                    <i class="material-icons fs-4">{{ service.icon }}</i>
+                                    {{ service.label }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="checkbox-group d-flex flex-column justify-content-center">
+                            <div v-for="(service, index) in store.services.slice(5, 10)" :key="service.id"
+                                class="form-check form-checkbox d-flex align-items-center mb-0">
+                                <input v-model="form.services" class="form-check-input border border-dark ms-1"
+                                    type="checkbox" :id="'service-' + service.id" :value="service.id" name="services[]">
+                                <label class="form-check-label d-flex align-items-center" :for="'service-' + service.id">
+                                    <i class="material-icons fs-4">{{ service.icon }}</i>
+                                    {{ service.label }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="checkbox-group d-flex flex-column justify-content-center">
+                            <div v-for="(service, index) in store.services.slice(10, 15)" :key="service.id"
+                                class="form-check form-checkbox d-flex align-items-center mb-0">
+                                <input v-model="form.services" class="form-check-input border border-dark ms-1"
+                                    type="checkbox" :id="'service-' + service.id" :value="service.id" name="services[]">
+                                <label class="form-check-label d-flex align-items-center" :for="'service-' + service.id">
+                                    <i class="material-icons fs-4">{{ service.icon }}</i>
+                                    {{ service.label }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="checkbox-group d-flex flex-column justify-content-center">
+                            <div v-for="(service, index) in store.services.slice(15, 20)" :key="service.id"
+                                class="form-check form-checkbox d-flex align-items-center mb-0">
+                                <input v-model="form.services" class="form-check-input border border-dark ms-1"
+                                    type="checkbox" :id="'service-' + service.id" :value="service.id" name="services[]">
+                                <label class="form-check-label d-flex align-items-center" :for="'service-' + service.id">
+                                    <i class="material-icons fs-4">{{ service.icon }}</i>
+                                    {{ service.label }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="d-flex justify-content-center mt-4">
+                    <button class="submit">Cerca</button>
                 </div>
             </form>
 
@@ -237,6 +273,8 @@ export default {
 </template>
   
 <style lang="scss" scoped>
+@use "../../scss/vars" as *;
+
 .form-group label {
     font-weight: bold;
 }
@@ -279,28 +317,45 @@ export default {
     padding: 12px;
     font-size: 16px;
     border: 2px solid #ccc;
-    border-radius: 5px;
+    border-radius: 30px;
     transition: border-color 0.3s ease-in-out;
 }
 
 /* Stile per il range input */
 #range {
-    width: 80%;
-    margin-right: 10px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
 }
 
-/* Cambia il colore del bordo quando l'input è in focus */
-.form-group input[type="text"]:focus,
-.form-group input[type="number"]:focus,
-.form-group input[type="range"]:focus {
-    border-color: #007bff;
+#range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: $black;
+    border: 2px solid $black;
+    border-radius: 50%;
+    cursor: pointer;
 }
+
+.form-group input:focus {
+    outline: none;
+    border: 3px solid #00ff8c;
+}
+
 
 /* Stile per i checkbox */
 .form-check {
     margin: 10px 0;
     display: flex;
     align-items: center;
+}
+
+.form-check-input[type="checkbox"]:checked {
+    background-color: $black;
+    border-color: $black;
 }
 
 .form-check-label {
@@ -311,19 +366,19 @@ export default {
 
 /* Stile per il pulsante "Vai" */
 .submit {
-    background-color: #007bff;
+    background-color: $black;
     color: #fff;
-    padding: 12px 20px;
+    padding: 10px 100px;
     font-size: 18px;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 }
 
 /* Cambia il colore del pulsante al passaggio del mouse */
 .submit:hover {
-    background-color: #0056b3;
+    background-color: #00b682;
 }
 
 /* Stile per i messaggi di errore */
