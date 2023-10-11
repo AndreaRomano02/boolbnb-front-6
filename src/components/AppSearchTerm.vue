@@ -146,14 +146,13 @@ export default {
 }
 
 #range-container {
-    position: fixed;
+    position: absolute;
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
     max-width: 510px;
     border-radius: 20px;
-    // background: linear-gradient(to bottom, rgb(0, 0, 19), rgb(0, 0, 25));
     background-color: rgba($white, 1.0);
     padding: 5px 10px;
     color: $black;
