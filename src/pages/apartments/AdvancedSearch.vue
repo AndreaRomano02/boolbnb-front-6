@@ -60,9 +60,9 @@ export default {
                     this.apartments = res.data;
 
                     this.apartments = this.apartments.sort((a, b) => {
-                        if (Array.isArray(a.sponsors) && a.sponsors.length > 0 && !Array.isArray(b.sponsors)) {
+                        if (a.sponsors.length && !b.sponsors.length) {
                             return -1;
-                        } else if (!Array.isArray(a.sponsors) && Array.isArray(b.sponsors) && b.sponsors.length > 0) {
+                        } else if (!a.sponsors && b.sponsors.length) {
                             return 1;
                         }
 
