@@ -9,34 +9,20 @@ export default {
     props: {
         apartments: Object,
     },
-    data() {
-        return {
-            is_loading: false,
-        };
-    },
 };
 </script>
 
 
 <template>
-    <AppLoader v-if="is_loading" />
-    <div v-else class="d-flex gap-4 w-100 flex-wrap mobile-container mrg-t ">
-        <div class="d-flex justify-content-center flex-grow-1 mt-5" v-for="apartment in apartments">
-            <ApartmentCard :apartment="apartment" :key="apartment.id" />
+    <div class="container">
+        <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+            <div class="mt-5 col-auto" v-for="apartment in apartments">
+                <ApartmentCard :apartment="apartment" :key="apartment.id" />
+            </div>
         </div>
     </div>
 </template>
   
 
 
-<style lang="scss" scoped>
-.mobile-container {
-    max-width: 1517px;
-    margin: 0 auto;
-}
-
-
-.mrg-t {
-    margin-top: 30px;
-}
-</style>
+<style lang="scss" scoped></style>
