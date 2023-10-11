@@ -114,15 +114,14 @@ export default {
 
                 // Estrai i suggerimenti dalla risposta API e assegna a `suggestions`
                 this.suggestions = data.results.map(result => result.address.freeformAddress);
-                console.log(this.suggestions)
             } catch (error) {
                 console.error('Errore nella chiamata API di TomTom:', error);
             }
 
         },
-        async handleAddressInput() {
+        handleAddressInput() {
             if (this.form.city) {
-                this.suggestions = await this.getTomTomSuggestions(this.form.city);
+                this.suggestions = this.getTomTomSuggestions(this.form.city);
             } else {
                 this.suggestions = [];
             }
