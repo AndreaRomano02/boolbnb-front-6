@@ -11,12 +11,28 @@ export default {
         return {
             ipAddress: null,
             date: null,
+            isSponsorActive: false,
+            lastSponsor: this.apartment.sponsors.length - 1,
+            currentTimeStamp: '',
+            endSponsorTimeStamp: '',
         }
     },
     created() {
         this.fetchIpAddress();
         this.fetchDate();
+        this.currentTimeStamp = Date.parse(new Date(this.date));
+
+        if (this.apartment.sponsors && this.apartment.sponsors.length > 0) {
+            this.endSponsorTimeStamp = Date.parse(new Date(this.apartment.sponsors[this.lastSponsor].pivot.end_date));
+
+            if (this.currentTimeStamp < this.endSponsorTimeStamp) {
+                this.isSponsorActive = true;
+            } else {
+                this.isSponsorActive = false;
+            }
+        }
     },
+
     methods: {
         fetchIpAddress() {
             axios.get('https://api.ipify.org?format=json')
@@ -65,6 +81,9 @@ export default {
             <div class="card-image">
                 <img v-if="apartment.images.length" :src="`http://127.0.0.1:8000/storage/${this.apartment.images[0].path}`"
                     alt="Apartment Image" />
+                <i v-if="this.isSponsorActive" id="sponsor-icon" class="material-symbols-outlined">
+                    social_leaderboard
+                </i>
             </div>
             <div class="card-content">
                 <h2 class="card-title">{{ apartment.title }}</h2>
@@ -84,6 +103,7 @@ export default {
                 </div>
                 <br>
                 <p class="card-description">{{ truncateDescription(apartment.description, 70) }}</p>
+
             </div>
         </router-link>
     </div>
@@ -99,7 +119,6 @@ export default {
     transition: transform 0.2s;
     overflow: hidden;
     height: 575px;
-    width: 400px;
     background-color: rgba($bone, 0.1);
 }
 
@@ -109,6 +128,18 @@ export default {
     overflow: hidden;
     border-radius: 8px;
     cursor: pointer;
+    position: relative;
+
+    #sponsor-icon {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-size: 24px;
+        color: $black;
+        padding: 8px;
+        border-radius: 50%;
+        background-color: goldenrod;
+    }
 }
 
 .card-image img {
