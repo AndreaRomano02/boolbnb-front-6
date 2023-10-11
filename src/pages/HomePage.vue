@@ -80,7 +80,7 @@ export default {
             </a>
         </div>
         <div id="sponsored" class="container-fluid px-5">
-            <div class="row px-2 gy-4 d-flex justify-content-start mt-5">
+            <div class="row px-2 gy-4 d-flex justify-content-start">
                 <div class="col-auto col-lg-3 col-md-6 col-sm-12" v-for="(apartment, index) in apartmentsWithSponsors"
                     :key="index">
                     <div>
@@ -97,8 +97,6 @@ export default {
 @use "../scss/vars" as *;
 
 #slidedown-btn {
-    position: relative;
-    top: -120px;
     color: $white;
     font-size: 100px;
 }
@@ -107,10 +105,13 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    top: -50px;
+    height: 0px;
 }
 
 #sponsored {
-    padding-top: 30px;
+    padding-top: 100px;
 }
 </style>
   
