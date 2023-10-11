@@ -72,7 +72,14 @@ export default {
     <main>
         <AppHeader :is-home-page="isHomePage" />
         <AppHero @address-change="onAddressChange" @form-submit="onFormSubmit" @distance-change="onDistanceChange" />
-        <div id="sponsored" class="container-fluid my-5 px-5">
+        <div class="center-button">
+            <a href="#sponsored">
+                <i id="slidedown-btn" class="material-icons">
+                    expand_more
+                </i>
+            </a>
+        </div>
+        <div id="sponsored" class="container-fluid px-5">
             <div class="row px-2 gy-4 d-flex justify-content-start mt-5">
                 <div class="col-auto col-lg-3 col-md-6 col-sm-12" v-for="(apartment, index) in apartmentsWithSponsors"
                     :key="index">
@@ -86,7 +93,26 @@ export default {
     </main>
 </template>
     
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use "../scss/vars" as *;
+
+#slidedown-btn {
+    position: relative;
+    top: -120px;
+    color: $white;
+    font-size: 100px;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sponsored {
+    padding-top: 30px;
+}
+</style>
   
 
 
